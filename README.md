@@ -7,7 +7,7 @@ soon
 ## Front-end
 soon
 
-## Run tests
+## Run Back-end's tests 
 
 ```
 ./manage.py test
