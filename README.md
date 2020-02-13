@@ -2,12 +2,17 @@
 Leia is a full stack application. This is an API build with python and Django Rest Framework using React.JS in user interface.
 
 ## Back-end
-soon
+
+### Install a virtual env and dependencies
+
+```
+pipenv install
+```
 
 ## Front-end
 soon
 
-## Run Back-end's tests 
+## Run Back-end's tests
 
 ```
 cd leiamanager/
