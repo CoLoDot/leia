@@ -9,8 +9,13 @@ soon
 
 ## Run tests
 
+```
 ./manage.py test
+```
 
 OR (if you need a coverage report)
+
+```
 coverage run --source='.' manage.py test leia
 coverage report
+```
