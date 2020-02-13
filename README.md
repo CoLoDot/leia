@@ -10,12 +10,14 @@ soon
 ## Run Back-end's tests 
 
 ```
+cd leiamanager/
 ./manage.py test
 ```
 
 OR (if you need a coverage report)
 
 ```
+cd leiamanager/
 coverage run --source='.' manage.py test leia
 coverage report
 ```
