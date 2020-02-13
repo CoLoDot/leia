@@ -1,0 +1,24 @@
+{
+  "name": "leia",
+  "version": "1.0.0",
+  "description": "Leia is a full stack application. This is an API build with python and Django Rest Framework using React.JS in user interface.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/CoLoDot/leia.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/CoLoDot/leia/issues"
+  },
+  "homepage": "https://github.com/CoLoDot/leia#readme",
+  "devDependencies": {
+    "webpack": "^4.41.6",
+    "webpack-cli": "^3.3.11"
+  }
+}
