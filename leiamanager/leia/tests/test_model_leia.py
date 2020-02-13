@@ -15,7 +15,7 @@ class LeiaTestCase(TestCase):
         leia_row = Leia.objects.get(name='Leia Organa')
         self.assertEqual(leia_row.name, 'Leia Organa')
         self.assertEqual(leia_row.email, 'princess.organa@mail.com')
-        self.assertEqual(leia_row.message, 'Princess Leia welcomes you' \
+        self.assertEqual(leia_row.message, 'Princess Leia welcomes you'
                                            ' to python test')
 
     def test_insert_row(self):
@@ -25,3 +25,9 @@ class LeiaTestCase(TestCase):
             email='skywalker@mail.com',
             message='i am not your son !')
         self.assertEqual(len(Leia.objects.all()), leia_model_total_rows + 1)
+
+    def test_delete_row(self):
+        leia_model_total_rows = len(Leia.objects.all())
+        row = Leia.objects.get(name='Leia Organa')
+        row.delete()
+        self.assertEqual(len(Leia.objects.all()), leia_model_total_rows - 1)
