@@ -5,6 +5,17 @@ Leia is a full stack application. This is an API build with python and Django Re
 
 ### Install a virtual env and dependencies
 
+#### 1 - Install Pipenv
+```
+pip3 install pipenv
+```
+
+#### 2 - Activate virtual env
+```
+pipenv shell
+```
+
+#### 3 - Install dependencies
 ```
 pipenv install
 ```
