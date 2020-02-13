@@ -37,7 +37,7 @@ cd leiamanager/
 ^C
 ```
 
-## Run Back-end's tests
+### Run tests
 
 ```
 cd leiamanager/
