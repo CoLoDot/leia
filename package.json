@@ -4,7 +4,7 @@
   "description": "Leia is a full stack application. This is an API build with python and Django Rest Framework using React.JS in user interface.",
   "main": "index.js",
   "scripts": {
-    "dev": "webpack --mode development ./leiamanager/leia_ui/src/index.js --output ./leiamanager/leia_ui/static/leia_ui/main.js",
+    "dev": "webpack --mode development --watch ./leiamanager/leia_ui/src/index.js --output ./leiamanager/leia_ui/static/leia_ui/main.js",
     "build": "webpack --mode production ./leiamanager/leia_ui/src/index.js --output ./leiamanager/leia_ui/static/leia_ui/main.js"
   },
   "repository": {
