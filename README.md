@@ -53,4 +53,9 @@ coverage report
 ```
 
 ## Front-end
-coming soon
+
+### Build dev mode
+
+```
+npm run dev
+```
