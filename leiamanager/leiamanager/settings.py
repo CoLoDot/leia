@@ -39,6 +39,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'leia',
     'rest_framework',
+    'leia_ui',
 ]
 
 MIDDLEWARE = [
