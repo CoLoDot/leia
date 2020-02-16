@@ -1,6 +1,6 @@
 import axios from "axios";
 
-import { GET_LEADERS, DELETE_LEADERS } from "./types";
+import { GET_LEADERS, DELETE_LEADERS, ADD_LEADERS } from "./types";
 
 // action get leader
 export const getLeaders = () => dispatch => {
@@ -23,6 +23,19 @@ export const deleteLeaders = id => dispatch => {
       dispatch({
         type: DELETE_LEADERS,
         payload: id
+      });
+    })
+    .catch(err => console.log(err));
+};
+
+// action add leader
+export const addLeaders = leader => dispatch => {
+  axios
+    .post("/api/leia/", leader)
+    .then(res => {
+      dispatch({
+        type: ADD_LEADERS,
+        payload: res.data
       });
     })
     .catch(err => console.log(err));

@@ -1,7 +1,6 @@
 import React, { Component, Fragment } from "react";
 import { connect } from "react-redux";
 import PropTypes from "prop-types";
-import IconButton from "@material-ui/core/IconButton";
 import DeleteIcon from "@material-ui/icons/Delete";
 import moment from "moment";
 
@@ -9,7 +8,9 @@ import { getLeaders, deleteLeaders } from "../../actions/leaders";
 
 export class LeadersList extends Component {
   static propTypes = {
-    leaders: PropTypes.array.isRequired
+    leaders: PropTypes.array.isRequired,
+    getLeaders: PropTypes.func.isRequired,
+    deleteLeaders: PropTypes.func.isRequired
   };
 
   componentDidMount() {
