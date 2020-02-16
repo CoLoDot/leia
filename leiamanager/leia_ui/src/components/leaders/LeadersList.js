@@ -1,10 +1,11 @@
 import React, { Component, Fragment } from "react";
 import { connect } from "react-redux";
 import PropTypes from "prop-types";
-import Delete from "@material-ui/icons/Delete";
+import IconButton from "@material-ui/core/IconButton";
+import DeleteIcon from "@material-ui/icons/Delete";
 import moment from "moment";
 
-import { getLeaders } from "../../actions/leaders";
+import { getLeaders, deleteLeaders } from "../../actions/leaders";
 
 export class LeadersList extends Component {
   static propTypes = {
@@ -38,8 +39,13 @@ export class LeadersList extends Component {
                   <td>{leader.message}</td>
                   <td>{moment(`${leader.created_at}`).format("MM/DD/YYYY")}</td>
                   <td>
-                    <button className="btn btn-sm">
-                      <Delete color="action" />
+                    <button
+                      color="action"
+                      className="btn btn-sm"
+                      onClick={this.props.deleteLeaders.bind(this, leader.id)}
+                    >
+                      {" "}
+                      <DeleteIcon />
                     </button>
                   </td>
                 </tr>
@@ -56,4 +62,6 @@ const mapStateToProps = state => ({
   leaders: state.LeadersList.leaders
 });
 
-export default connect(mapStateToProps, { getLeaders })(LeadersList);
+export default connect(mapStateToProps, { getLeaders, deleteLeaders })(
+  LeadersList
+);
