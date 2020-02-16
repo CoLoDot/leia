@@ -1,13 +1,58 @@
-import React, { Component } from 'react'
+import React, { Component, Fragment } from "react";
+import { connect } from "react-redux";
+import PropTypes from "prop-types";
+import Delete from "@material-ui/icons/Delete";
+
+import { getLeaders } from "../../actions/leaders";
 
 export class LeadersList extends Component {
-    render() {
-        return (
-            <div>
-                <h1>Leader list</h1>
-            </div>
-        )
-    }
+  static propTypes = {
+    leaders: PropTypes.array.isRequired
+  };
+
+  componentDidMount() {
+    this.props.getLeaders();
+  }
+
+  render() {
+    return (
+      <div>
+        <Fragment>
+          <h2>Leaders</h2>
+          <table className="table table-striped">
+            <thead>
+              <th>ID</th>
+              <th>Name</th>
+              <th>Email</th>
+              <th>Message</th>
+              <th>Created at</th>
+              <th />
+            </thead>
+            <tbody>
+              {this.props.leaders.map(leader => (
+                <tr key={leader.id}>
+                  <td>{leader.id}</td>
+                  <td>{leader.name}</td>
+                  <td>{leader.email}</td>
+                  <td>{leader.message}</td>
+                  <td>{leader.created_at}</td>
+                  <td>
+                    <button className="btn btn-sm">
+                      <Delete color="action" />
+                    </button>
+                  </td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </Fragment>
+      </div>
+    );
+  }
 }
 
-export default LeadersList
+const mapStateToProps = state => ({
+  leaders: state.LeadersList.leaders
+});
+
+export default connect(mapStateToProps, { getLeaders })(LeadersList);
