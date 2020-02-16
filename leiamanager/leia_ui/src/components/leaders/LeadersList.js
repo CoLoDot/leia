@@ -2,6 +2,7 @@ import React, { Component, Fragment } from "react";
 import { connect } from "react-redux";
 import PropTypes from "prop-types";
 import Delete from "@material-ui/icons/Delete";
+import moment from "moment";
 
 import { getLeaders } from "../../actions/leaders";
 
@@ -35,7 +36,7 @@ export class LeadersList extends Component {
                   <td>{leader.name}</td>
                   <td>{leader.email}</td>
                   <td>{leader.message}</td>
-                  <td>{leader.created_at}</td>
+                  <td>{moment(`${leader.created_at}`).format("MM/DD/YYYY")}</td>
                   <td>
                     <button className="btn btn-sm">
                       <Delete color="action" />
