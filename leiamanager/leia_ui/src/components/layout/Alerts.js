@@ -11,4 +11,4 @@ export class Alerts extends Component {
   }
 }
 
-export default withAlert(Alerts);
+export default withAlert()(Alerts);

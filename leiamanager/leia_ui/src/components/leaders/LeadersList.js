@@ -24,12 +24,14 @@ export class LeadersList extends Component {
           <h2>Leaders</h2>
           <table className="table table-striped">
             <thead>
-              <th>ID</th>
-              <th>Name</th>
-              <th>Email</th>
-              <th>Message</th>
-              <th>Created at</th>
-              <th />
+              <tr>
+                <th>ID</th>
+                <th>Name</th>
+                <th>Email</th>
+                <th>Message</th>
+                <th>Created at</th>
+                <th />
+              </tr>
             </thead>
             <tbody>
               {this.props.leaders.map(leader => (
