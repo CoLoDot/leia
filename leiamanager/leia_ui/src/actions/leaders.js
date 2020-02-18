@@ -1,6 +1,7 @@
 import axios from "axios";
 
 import { GET_LEADERS, DELETE_LEADERS, ADD_LEADERS, GET_ERRORS } from "./types";
+import { generateMessage } from "./messages";
 
 // action get leader
 export const getLeaders = () => dispatch => {
@@ -20,6 +21,7 @@ export const deleteLeaders = id => dispatch => {
   axios
     .delete(`/api/leia/${id}/`)
     .then(res => {
+      dispatch(generateMessage({ leaderDeleted: "Leader deleted !" }));
       dispatch({
         type: DELETE_LEADERS,
         payload: id

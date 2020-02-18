@@ -5,11 +5,12 @@ import PropTypes from "prop-types";
 
 export class Alerts extends Component {
   static propTypes = {
-    error: PropTypes.object.isRequired
+    error: PropTypes.object.isRequired,
+    message: PropTypes.object.isRequired
   };
 
   componentDidUpdate(prevProps) {
-    const { error, alert } = this.props;
+    const { error, alert, message } = this.props;
     if (error !== prevProps.error) {
       if (error.message.name) {
         alert.error(`Name : ${error.message.name.join()}`);
@@ -17,6 +18,12 @@ export class Alerts extends Component {
         alert.error(`Email : ${error.message.email.join()}`);
       } else if (error.status) {
         alert.error("An error occured");
+      }
+    }
+
+    if (message !== prevProps.message) {
+      if (message.leaderDeleted) {
+        alert.success(message.leaderDeleted);
       }
     }
   }
@@ -27,7 +34,8 @@ export class Alerts extends Component {
 }
 
 const mapStateToProps = state => ({
-  error: state.Errors
+  error: state.Errors,
+  message: state.Messages
 });
 
 export default connect(mapStateToProps)(withAlert()(Alerts));
