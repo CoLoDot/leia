@@ -1,6 +1,6 @@
 import axios from "axios";
 
-import { GET_LEADERS, DELETE_LEADERS, ADD_LEADERS } from "./types";
+import { GET_LEADERS, DELETE_LEADERS, ADD_LEADERS, GET_ERRORS } from "./types";
 
 // action get leader
 export const getLeaders = () => dispatch => {
@@ -38,5 +38,14 @@ export const addLeaders = leader => dispatch => {
         payload: res.data
       });
     })
-    .catch(err => console.log(err));
+    .catch(err => {
+      const errors = {
+        message: err.response.data,
+        status: err.response.status
+      };
+      dispatch({
+        type: GET_ERRORS,
+        payload: errors
+      });
+    });
 };
