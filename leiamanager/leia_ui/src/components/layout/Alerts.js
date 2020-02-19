@@ -16,8 +16,6 @@ export class Alerts extends Component {
         alert.error(`Name : ${error.message.name.join()}`);
       } else if (error.message.email) {
         alert.error(`Email : ${error.message.email.join()}`);
-      } else if (error.status) {
-        alert.error("An error occured");
       }
     }
 
