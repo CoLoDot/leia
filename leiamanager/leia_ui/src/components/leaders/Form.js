@@ -24,6 +24,11 @@ export class Form extends Component {
     const { name, email, message } = this.state;
     const leaderToSend = { name, email, message };
     this.props.addLeaders(leaderToSend);
+    this.setState({
+      name: "",
+      email: "",
+      message: ""
+    });
   };
 
   render() {
