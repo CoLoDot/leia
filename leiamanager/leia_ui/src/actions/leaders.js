@@ -1,7 +1,7 @@
 import axios from "axios";
 
-import { GET_LEADERS, DELETE_LEADERS, ADD_LEADERS, GET_ERRORS } from "./types";
-import { generateMessage } from "./messages";
+import { GET_LEADERS, DELETE_LEADERS, ADD_LEADERS } from "./types";
+import { generateMessage, returnErrors } from "./messages";
 
 // action get leader
 export const getLeaders = () => dispatch => {
@@ -13,7 +13,9 @@ export const getLeaders = () => dispatch => {
         payload: res.data
       });
     })
-    .catch(err => console.log(err));
+    .catch(err =>
+      dispatch(returnErrors(err.response.data, err.response.status))
+    );
 };
 
 // action delete leader
@@ -41,14 +43,7 @@ export const addLeaders = leader => dispatch => {
         payload: res.data
       });
     })
-    .catch(err => {
-      const errors = {
-        message: err.response.data,
-        status: err.response.status
-      };
-      dispatch({
-        type: GET_ERRORS,
-        payload: errors
-      });
-    });
+    .catch(err =>
+      dispatch(returnErrors(err.response.data, err.response.status))
+    );
 };

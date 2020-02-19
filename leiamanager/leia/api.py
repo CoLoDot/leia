@@ -5,8 +5,13 @@ from .serializers import LeiaSerializer
 
 # Leia ViewSet
 class LeiaViewSet(viewsets.ModelViewSet):
-    queryset = Leia.objects.all()
     permission_classes = [
-        permissions.AllowAny
+        permissions.IsAuthenticated
     ]
     serializer_class = LeiaSerializer
+
+    def get_queryset(self):
+        return self.request.user.leia.all()
+
+    def perform_create(self, serializer):
+        serializer.save(owner=self.request.user)
