@@ -35,6 +35,7 @@ export const addLeaders = leader => dispatch => {
   axios
     .post("/api/leia/", leader)
     .then(res => {
+      dispatch(generateMessage({ addLeader: "new leader added !" }));
       dispatch({
         type: ADD_LEADERS,
         payload: res.data

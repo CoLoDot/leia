@@ -25,6 +25,9 @@ export class Alerts extends Component {
       if (message.leaderDeleted) {
         alert.success(message.leaderDeleted);
       }
+      if (message.addLeader) {
+        alert.success(message.addLeader);
+      }
     }
   }
 
