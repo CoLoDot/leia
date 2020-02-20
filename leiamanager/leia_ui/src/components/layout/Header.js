@@ -1,8 +1,19 @@
 import React, { Component } from "react";
 import { Link } from "react-router-dom";
+import { connect } from "react-redux";
+import PropTypes from "prop-types";
+import { userLogout } from "../../actions/auth";
+import Button from "@material-ui/core/Button";
 
 export class Header extends Component {
+  static propTypes = {
+    auth: PropTypes.object.isRequired,
+    userLogout: PropTypes.func.isRequired
+  };
+
   render() {
+    const { isAuthenticated, user } = this.props.auth;
+
     return (
       <nav className="navbar navbar-expand-sm navbar-light bg-light">
         <div className="container">
@@ -21,18 +32,32 @@ export class Header extends Component {
             <span className="navbar-toggler-icon"></span>
           </button>
           <div className="collapse navbar-collapse" id="navbarNav">
-            <ul className="navbar-nav ml-auto mt-2-mt-lg-0">
-              <li className="nav-item">
-                <Link to="/registration" className="nav-link">
-                  Create account
-                </Link>
-              </li>
-              <li className="nav-item">
-                <Link to="/login" className="nav-link">
-                  Login
-                </Link>
-              </li>
-            </ul>
+            {isAuthenticated ? (
+              <ul className="navbar-nav ml-auto mt-2-mt-lg-0">
+                <li className="nav-item">
+                  <Button
+                    variant="contained"
+                    onClick={this.props.userLogout}
+                    className="nav-link"
+                  >
+                    Logout
+                  </Button>
+                </li>
+              </ul>
+            ) : (
+              <ul className="navbar-nav ml-auto mt-2-mt-lg-0">
+                <li className="nav-item">
+                  <Link to="/registration" className="nav-link">
+                    Create account
+                  </Link>
+                </li>
+                <li className="nav-item">
+                  <Link to="/login" className="nav-link">
+                    Login
+                  </Link>
+                </li>
+              </ul>
+            )}
           </div>
         </div>
       </nav>
@@ -40,4 +65,8 @@ export class Header extends Component {
   }
 }
 
-export default Header;
+const mapStateToProps = state => ({
+  auth: state.Auth
+});
+
+export default connect(mapStateToProps, { userLogout })(Header);
