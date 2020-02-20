@@ -1,9 +1,9 @@
-import { GENERATE_LEADER_MSG, GET_ERRORS } from "./types";
+import { GENERATE_MSG, GET_ERRORS } from "./types";
 
 // Add leader message
 export const generateMessage = message => {
   return {
-    type: GENERATE_LEADER_MSG,
+    type: GENERATE_MSG,
     payload: message
   };
 };

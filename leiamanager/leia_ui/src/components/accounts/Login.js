@@ -1,13 +1,21 @@
 import React, { Component } from "react";
-import { Link } from "react-router-dom";
+import { connect } from "react-redux";
+import { Link, Redirect } from "react-router-dom";
 import { useStyles } from "../../styles/Button";
 import Button from "@material-ui/core/Button";
 import SendIcon from "@material-ui/icons/Send";
+import PropTypes from "prop-types";
+import { userLogin } from "../../actions/auth";
 
 export class Login extends Component {
   state = {
     username: "",
     password: ""
+  };
+
+  static propTypes = {
+    userLogin: PropTypes.func.isRequired,
+    isAuthenticated: PropTypes.bool
   };
 
   handleOnChange = e => {
@@ -17,12 +25,13 @@ export class Login extends Component {
   handleOnSubmit = e => {
     e.preventDefault();
     const { username, password } = this.state;
-    const userToRegister = { username, password };
-    //this.props.createUser(userToRegister);
-    console.log(userToRegister);
+    this.props.userLogin(username, password);
   };
 
   render() {
+    if (this.props.isAuthenticated) {
+      return <Redirect to="/" />;
+    }
     const { username, password } = this.state;
     return (
       <div className="card card-body mt-4 mb-4">
@@ -69,4 +78,8 @@ export class Login extends Component {
   }
 }
 
-export default Login;
+const mapStateToProps = state => ({
+  isAuthenticated: state.Auth.isAuthenticated
+});
+
+export default connect(mapStateToProps, { userLogin })(Login);
