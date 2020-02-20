@@ -1,5 +1,8 @@
 import React, { Component } from "react";
 import { Link } from "react-router-dom";
+import { useStyles } from "../../styles/Button";
+import Button from "@material-ui/core/Button";
+import SendIcon from "@material-ui/icons/Send";
 
 export class Login extends Component {
   state = {
@@ -13,8 +16,8 @@ export class Login extends Component {
 
   handleOnSubmit = e => {
     e.preventDefault();
-    const { name, password } = this.state;
-    const userToRegister = { name, password };
+    const { username, password } = this.state;
+    const userToRegister = { username, password };
     //this.props.createUser(userToRegister);
     console.log(userToRegister);
   };
@@ -23,10 +26,10 @@ export class Login extends Component {
     const { username, password } = this.state;
     return (
       <div className="card card-body mt-4 mb-4">
-        <h4>Create account</h4>
+        <h4>Login</h4>
         <form onSubmit={this.handleOnSubmit}>
           <div className="form-group">
-            <label>username</label>
+            <label>Username</label>
             <input
               className="form-control"
               type="text"
@@ -37,7 +40,7 @@ export class Login extends Component {
           </div>
 
           <div className="form-group">
-            <label>password</label>
+            <label>Password</label>
             <input
               className="form-control"
               type="password"
@@ -46,16 +49,19 @@ export class Login extends Component {
               value={password}
             />
           </div>
-
           <div className="form-group">
-            <button type="submit" className="btn ">
-              {"Login "}
-              <SendIcon className="action" />
-            </button>
+            <Button
+              variant="contained"
+              type="submit"
+              className={useStyles.button}
+              endIcon={<SendIcon className="action" />}
+            >
+              Send
+            </Button>
           </div>
           <p>
             Not registered yet ?
-            <Link to="/registration">Create an account</Link>
+            <Link to="/registration"> Create an account</Link>
           </p>
         </form>
       </div>

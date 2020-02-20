@@ -13,9 +13,11 @@ import Dashboard from "./leaders/Dashboard";
 import Alerts from "./layout/Alerts";
 import Login from "./accounts/Login";
 import Registration from "./accounts/Registration";
+import PrivateRoute from "./commons/PrivateRoute";
 
 import { Provider } from "react-redux";
 import store from "../store";
+import { userLoad } from "../actions/auth";
 
 // Alerting options
 const alertingOptions = {
@@ -24,6 +26,10 @@ const alertingOptions = {
 };
 
 class App extends Component {
+  componentDidMount() {
+    store.dispatch(userLoad());
+  }
+
   render() {
     return (
       <Provider store={store}>
@@ -34,7 +40,7 @@ class App extends Component {
               <Alerts />
               <div className="container">
                 <Switch>
-                  <Route exact path="/" component={Dashboard} />
+                  <PrivateRoute exact path="/" component={Dashboard} />
                   <Route exact path="/registration" component={Registration} />
                   <Route exact path="/login" component={Login} />
                 </Switch>

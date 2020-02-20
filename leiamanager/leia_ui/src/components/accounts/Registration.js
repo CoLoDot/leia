@@ -1,5 +1,8 @@
 import React, { Component } from "react";
 import { Link } from "react-router-dom";
+import { useStyles } from "../../styles/Button";
+import Button from "@material-ui/core/Button";
+import SendIcon from "@material-ui/icons/Send";
 
 export class Registration extends Component {
   state = {
@@ -15,8 +18,8 @@ export class Registration extends Component {
 
   handleOnSubmit = e => {
     e.preventDefault();
-    const { name, email, password, password2 } = this.state;
-    const userToRegister = { name, email, password, password2 };
+    const { username, email, password, password2 } = this.state;
+    const userToRegister = { username, email, password, password2 };
     //this.props.createUser(userToRegister);
     console.log(userToRegister);
   };
@@ -28,7 +31,7 @@ export class Registration extends Component {
         <h4>Create account</h4>
         <form onSubmit={this.handleOnSubmit}>
           <div className="form-group">
-            <label>username</label>
+            <label>Username</label>
             <input
               className="form-control"
               type="text"
@@ -38,7 +41,7 @@ export class Registration extends Component {
             />
           </div>
           <div className="form-group">
-            <label>email</label>
+            <label>Email</label>
             <input
               className="form-control"
               type="email"
@@ -48,7 +51,7 @@ export class Registration extends Component {
             />
           </div>
           <div className="form-group">
-            <label>password</label>
+            <label>Password</label>
             <input
               className="form-control"
               type="password"
@@ -58,7 +61,7 @@ export class Registration extends Component {
             />
           </div>
           <div className="form-group">
-            <label>password confirmation</label>
+            <label>Password confirmation</label>
             <input
               className="form-control"
               type="password"
@@ -68,10 +71,14 @@ export class Registration extends Component {
             />
           </div>
           <div className="form-group">
-            <button type="submit" className="btn ">
-              {"Create account "}
-              <SendIcon className="action" />
-            </button>
+            <Button
+              variant="contained"
+              type="submit"
+              className={useStyles.button}
+              endIcon={<SendIcon className="action" />}
+            >
+              Send
+            </Button>
           </div>
           <p>
             Already have an account ? <Link to="/login">Login</Link>
