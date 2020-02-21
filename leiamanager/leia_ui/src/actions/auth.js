@@ -6,27 +6,18 @@ import {
   AUTH_ERROR,
   LOGIN_SUCCESS,
   LOGIN_FAILED,
-  LOGOUT_SUCCESS
+  LOGOUT_SUCCESS,
+  REGISTRATION_SUCCESS,
+  REGISTRATION_FAILED
 } from "./types";
+import { configWithToken } from "./commons/params";
 
 export const userLoad = () => (dispatch, getState) => {
   // check user loading
   dispatch({ type: USER_IS_LOADING });
-  // get token
-  const token = getState().Auth.token;
-  // configurate headers
-  const headerConfig = {
-    headers: {
-      "Content-Type": "application/json"
-    }
-  };
-
-  if (token) {
-    headerConfig.headers["Authorization"] = `Token ${token}`;
-  }
 
   axios
-    .get("/api/auth/user", headerConfig)
+    .get("/api/auth/user", configWithToken(getState))
     .then(res => {
       dispatch({
         type: USER_IS_LOADED,
@@ -66,22 +57,34 @@ export const userLogin = (username, password) => dispatch => {
     });
 };
 
-export const userLogout = () => (dispatch, getState) => {
-  // get token
-  const token = getState().Auth.token;
-  // configurate headers
+export const userRegistration = ({ username, email, password }) => dispatch => {
   const headerConfig = {
     headers: {
       "Content-Type": "application/json"
     }
   };
 
-  if (token) {
-    headerConfig.headers["Authorization"] = `Token ${token}`;
-  }
+  const convertPayloadToJson = JSON.stringify({ username, email, password });
 
   axios
-    .post("/api/auth/logout/", null, headerConfig)
+    .post("/api/auth/registration", convertPayloadToJson, headerConfig)
+    .then(res => {
+      dispatch({
+        type: REGISTRATION_SUCCESS,
+        payload: res.data
+      });
+    })
+    .catch(err => {
+      dispatch(returnErrors(err.response.data, err.response.status));
+      dispatch({
+        type: REGISTRATION_FAILED
+      });
+    });
+};
+
+export const userLogout = () => (dispatch, getState) => {
+  axios
+    .post("/api/auth/logout/", null, configWithToken(getState))
     .then(res => {
       dispatch({
         type: LOGOUT_SUCCESS

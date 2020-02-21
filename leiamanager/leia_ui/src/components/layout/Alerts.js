@@ -16,6 +16,12 @@ export class Alerts extends Component {
         alert.error(`Name : ${error.message.name.join()}`);
       } else if (error.message.email) {
         alert.error(`Email : ${error.message.email.join()}`);
+      } else if (error.message.non_field_errors) {
+        alert.error(error.message.non_field_errors.join());
+      } else if (error.message.username) {
+        alert.error(error.message.username.join());
+      } else if (error.message.email) {
+        alert.error(error.message.email.join());
       }
     }
 
@@ -25,6 +31,9 @@ export class Alerts extends Component {
       }
       if (message.addLeader) {
         alert.success(message.addLeader);
+      }
+      if (message.passwordIsNotMatching) {
+        alert.error(message.passwordIsNotMatching);
       }
     }
   }
