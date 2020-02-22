@@ -1,10 +1,10 @@
 language: python
 python:
   - "3.7"
-before_script:
-  - pip3 install pipenv
-  - pipenv shell
+
+install:
+  - pip install pipenv
   - pipenv install
 
 script:
-  - ./manage.py test
+  - cd leiamanager/ coverage run --source='.' manage.py test leia coverage report
