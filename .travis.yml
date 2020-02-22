@@ -1,7 +1,7 @@
 language: generic
 
 before_script:
-  - pip3 install pipenv
+  - pip install pipenv
   - pipenv shell
   - pipenv install
 
