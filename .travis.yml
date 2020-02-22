@@ -10,4 +10,4 @@ script:
   - cd leiamanager/
   - coverage run --source='.' manage.py test leia
   - coverage report
-  - npm run test
+  - npm test
