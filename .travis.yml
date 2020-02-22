@@ -2,7 +2,7 @@ language: generic
 python:
   - "3.7"
 before_script:
-  - pip install pipenv
+  - pip3 install pipenv
   - pipenv shell
   - pipenv install
 
