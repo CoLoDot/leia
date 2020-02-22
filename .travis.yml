@@ -7,4 +7,6 @@ install:
   - pipenv install
 
 script:
-  - cd leiamanager/ coverage run --source='.' manage.py test leia coverage report
+  - cd leiamanager/
+  - coverage run --source='.' manage.py test leia
+  - coverage report
