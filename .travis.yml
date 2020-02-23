@@ -5,6 +5,7 @@ python:
 install:
   - pip install pipenv
   - pipenv install
+  - npm install jest
 
 script:
   - cd leiamanager/
