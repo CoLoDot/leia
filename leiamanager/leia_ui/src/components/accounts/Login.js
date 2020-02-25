@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { connect } from "react-redux";
+import { connect, HashRouter as Router } from "react-redux";
 import { Link, Redirect } from "react-router-dom";
 import { useStyles } from "../../styles/Button";
 import Button from "@material-ui/core/Button";
@@ -70,7 +70,9 @@ export class Login extends Component {
           </div>
           <p>
             Not registered yet ?
-            <Link to="/registration"> Create an account</Link>
+            <Router>
+              <Link to="/registration"> Create an account</Link>
+            </Router>
           </p>
         </form>
       </div>
