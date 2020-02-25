@@ -16,7 +16,7 @@ export const userLoad = () => (dispatch, getState) => {
   // check user loading
   dispatch({ type: USER_IS_LOADING });
 
-  axios
+  return axios
     .get("/api/auth/user", configWithToken(getState))
     .then(res => {
       dispatch({
@@ -41,7 +41,7 @@ export const userLogin = (username, password) => dispatch => {
 
   const convertPayloadToJson = JSON.stringify({ username, password });
 
-  axios
+  return axios
     .post("/api/auth/login", convertPayloadToJson, headerConfig)
     .then(res => {
       dispatch({
@@ -66,7 +66,7 @@ export const userRegistration = ({ username, email, password }) => dispatch => {
 
   const convertPayloadToJson = JSON.stringify({ username, email, password });
 
-  axios
+  return axios
     .post("/api/auth/registration", convertPayloadToJson, headerConfig)
     .then(res => {
       dispatch({
@@ -83,7 +83,7 @@ export const userRegistration = ({ username, email, password }) => dispatch => {
 };
 
 export const userLogout = () => (dispatch, getState) => {
-  axios
+  return axios
     .post("/api/auth/logout/", null, configWithToken(getState))
     .then(res => {
       dispatch({

@@ -1,6 +1,6 @@
 import { GENERATE_MSG, GET_ERRORS } from "./types";
 
-// Add leader message
+// generate message
 export const generateMessage = message => {
   return {
     type: GENERATE_MSG,
