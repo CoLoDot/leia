@@ -1,5 +1,6 @@
 import React, { Component } from "react";
-import { connect, HashRouter as Router } from "react-redux";
+import { connect } from "react-redux";
+import { HashRouter as Router } from "react-router-dom";
 import { Link, Redirect } from "react-router-dom";
 import { useStyles } from "../../styles/Button";
 import Button from "@material-ui/core/Button";
