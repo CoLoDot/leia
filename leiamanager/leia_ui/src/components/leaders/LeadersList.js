@@ -25,7 +25,6 @@ export class LeadersList extends Component {
           <table className="table table-striped">
             <thead>
               <tr>
-                <th>ID</th>
                 <th>Name</th>
                 <th>Email</th>
                 <th>Message</th>
@@ -36,7 +35,6 @@ export class LeadersList extends Component {
             <tbody>
               {this.props.leaders.map(leader => (
                 <tr key={leader.id}>
-                  <td>{leader.id}</td>
                   <td>{leader.name}</td>
                   <td>{leader.email}</td>
                   <td>{leader.message}</td>

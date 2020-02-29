@@ -46,7 +46,7 @@ export class Registration extends Component {
 
   render() {
     if (this.props.isAuthenticated) {
-      return <Redirect to="/" />;
+      return <Redirect to="/dashboard" />;
     }
     const { username, email, password, password2 } = this.state;
     return (

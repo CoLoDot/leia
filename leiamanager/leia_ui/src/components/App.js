@@ -4,6 +4,7 @@ import { Provider as AlertProvider } from "react-alert";
 import AlertTemplate from "react-alert-template-basic";
 import { HashRouter as Router, Route, Switch } from "react-router-dom";
 import Header from "./layout/Header";
+import Home from "./Home";
 import Dashboard from "./leaders/Dashboard";
 import Alerts from "./layout/Alerts";
 import Login from "./accounts/Login";
@@ -35,7 +36,8 @@ class App extends Component {
               <Alerts />
               <div className="container">
                 <Switch>
-                  <PrivateRoute exact path="/" component={Dashboard} />
+                  <Route exact path="/" component={Home} />
+                  <PrivateRoute exact path="/dashboard" component={Dashboard} />
                   <Route exact path="/registration" component={Registration} />
                   <Route exact path="/login" component={Login} />
                 </Switch>

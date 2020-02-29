@@ -41,13 +41,15 @@ export class Header extends Component {
                   </strong>
                 </span>
                 <li className="nav-item">
-                  <Button
-                    variant="contained"
-                    onClick={this.props.userLogout}
-                    className="nav-link"
-                  >
-                    Logout
-                  </Button>
+                  <Link to="/" className="nav-link">
+                    <Button
+                      variant="contained"
+                      onClick={this.props.userLogout}
+                      className="nav-link"
+                    >
+                      Logout
+                    </Button>
+                  </Link>
                 </li>
               </ul>
             ) : (
