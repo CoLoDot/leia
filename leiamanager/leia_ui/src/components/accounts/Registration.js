@@ -50,7 +50,7 @@ export class Registration extends Component {
     }
     const { username, email, password, password2 } = this.state;
     return (
-      <div className="card card-body mt-4 mb-4">
+      <div className="card card-body mt-4 mb-4 border-0">
         <h4>Create account</h4>
         <form onSubmit={this.handleOnSubmit}>
           <div className="form-group">

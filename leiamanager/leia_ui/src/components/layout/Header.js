@@ -1,10 +1,34 @@
-import React, { Component } from "react";
+import React, { Component, Fragment } from "react";
+import AppBar from "@material-ui/core/AppBar";
+import Toolbar from "@material-ui/core/Toolbar";
+import Typography from "@material-ui/core/Typography";
 import { Link } from "react-router-dom";
 import { connect } from "react-redux";
 import PropTypes from "prop-types";
 import { userLogout } from "../../actions/auth";
 import Button from "@material-ui/core/Button";
 import _ from "lodash";
+import { makeStyles } from "@material-ui/core/styles";
+
+import { pink } from "@material-ui/core/colors";
+
+export const useStyles = makeStyles(theme => ({
+  root: {
+    flexGrow: 1
+  },
+  title: {
+    flexGrow: 1
+  },
+  button: {
+    color: pink
+  },
+  sectionDesktop: {
+    display: "flex-end",
+    [theme.breakpoints.up("md")]: {
+      display: "flex-end"
+    }
+  }
+}));
 
 export class Header extends Component {
   static propTypes = {
@@ -16,59 +40,43 @@ export class Header extends Component {
     const { isAuthenticated, user } = this.props.auth;
 
     return (
-      <nav className="navbar navbar-expand-sm navbar-light bg-light">
-        <div className="container">
-          <a className="navbar-brand" href="/">
-            Leia
-          </a>
-          <button
-            className="navbar-toggler"
-            type="button"
-            data-toggle="collapse"
-            data-target="#navbarNav"
-            aria-controls="navbarNav"
-            aria-expanded="false"
-            aria-label="Toggle navigation"
-          >
-            <span className="navbar-toggler-icon"></span>
-          </button>
-          <div className="collapse navbar-collapse" id="navbarNav">
-            {isAuthenticated ? (
-              <ul className="navbar-nav ml-auto mt-2-mt-lg-0">
-                <span className="navbar-text mr-3">
-                  <strong>
+      <div className={useStyles.root}>
+        <AppBar position="static">
+          <Toolbar>
+            <Typography
+              className={useStyles.title}
+              variant="h6"
+              noWrap
+              style={{ flex: 1 }}
+            >
+              Leia
+            </Typography>
+            <div className={useStyles.sectionDesktop}>
+              {isAuthenticated ? (
+                <Toolbar>
+                  <Typography className={useStyles.title} variant="h6" noWrap>
                     {user ? `Welcome ${_.upperFirst(user.username)}` : ""}
-                  </strong>
-                </span>
-                <li className="nav-item">
-                  <Link to="/" className="nav-link">
-                    <Button
-                      variant="contained"
-                      onClick={this.props.userLogout}
-                      className="nav-link"
-                    >
+                  </Typography>
+                  <Link to="/">
+                    <Button variant="contained" onClick={this.props.userLogout}>
                       Logout
                     </Button>
                   </Link>
-                </li>
-              </ul>
-            ) : (
-              <ul className="navbar-nav ml-auto mt-2-mt-lg-0">
-                <li className="nav-item">
-                  <Link to="/registration" className="nav-link">
-                    Create account
+                </Toolbar>
+              ) : (
+                <Toolbar>
+                  <Link to="/registration">
+                    <Button className={useStyles.button}>Create account</Button>
                   </Link>
-                </li>
-                <li className="nav-item">
-                  <Link to="/login" className="nav-link">
-                    Login
+                  <Link to="/login">
+                    <Button className={useStyles.button}>Login</Button>
                   </Link>
-                </li>
-              </ul>
-            )}
-          </div>
-        </div>
-      </nav>
+                </Toolbar>
+              )}
+            </div>
+          </Toolbar>
+        </AppBar>
+      </div>
     );
   }
 }

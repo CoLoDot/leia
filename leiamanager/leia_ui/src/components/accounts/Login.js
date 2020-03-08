@@ -35,7 +35,7 @@ export class Login extends Component {
     }
     const { username, password } = this.state;
     return (
-      <div className="card card-body mt-4 mb-4">
+      <div className="card card-body mt-4 mb-4 border-0">
         <h4>Login</h4>
         <form onSubmit={this.handleOnSubmit}>
           <div className="form-group">

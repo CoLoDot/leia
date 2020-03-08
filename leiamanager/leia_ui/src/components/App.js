@@ -4,16 +4,16 @@ import { Provider as AlertProvider } from "react-alert";
 import AlertTemplate from "react-alert-template-basic";
 import { HashRouter as Router, Route, Switch } from "react-router-dom";
 import Header from "./layout/Header";
-import Home from "./Home";
+import Home from "./Home/Home";
 import Dashboard from "./leaders/Dashboard";
 import Alerts from "./layout/Alerts";
 import Login from "./accounts/Login";
 import Registration from "./accounts/Registration";
 import PrivateRoute from "./commons/PrivateRoute";
-
 import { Provider } from "react-redux";
 import store from "../store";
 import { userLoad } from "../actions/auth";
+import NavBar from "../components/Nav/NavBar";
 
 // Alerting options
 const alertingOptions = {
@@ -33,6 +33,7 @@ class App extends Component {
           <Router>
             <Fragment>
               <Header />
+
               <Alerts />
               <div className="container">
                 <Switch>
