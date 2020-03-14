@@ -73,12 +73,23 @@ export class Home extends Component {
                     {animal.title}
                   </Typography>
                 </Grid>
-                <Grid item xs={9}>
+                <Grid
+                  item
+                  xs={6}
+                  style={{
+                    padding: "0px"
+                  }}
+                >
                   <VerticalLinearStepper
                     name={animal.title}
                     year={animal.year}
                     cause="coming soon"
                   />
+                </Grid>
+                <Grid item xs={3}>
+                  <Typography variant="h6" align="center">
+                    image
+                  </Typography>
                 </Grid>
               </Grid>
             ))

@@ -33,7 +33,7 @@ export class Header extends Component {
               </Link>
             </Toolbar>
           ) : (
-            <Toolbar>
+            <Toolbar style={{ paddingRight: "0px" }}>
               <Link to="/registration">
                 <Button variant="contained" style={{ marginRight: "10px" }}>
                   Create account
