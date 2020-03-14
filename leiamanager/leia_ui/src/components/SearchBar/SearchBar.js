@@ -14,8 +14,10 @@ const useStyles = makeStyles(theme => ({
   }
 }));
 
-export default function LayoutTextFields() {
+export default function SearchBar() {
   const classes = useStyles();
+
+  const onChangeChild = e => this.props.onChange(e);
 
   return (
     <div className={classes.root}>
@@ -26,9 +28,8 @@ export default function LayoutTextFields() {
           placeholder="find"
           fullWidth
           margin="normal"
-          InputLabelProps={{
-            shrink: true
-          }}
+          type="text"
+          onChange={e => onChangeChild(e)}
         />
       </div>
     </div>

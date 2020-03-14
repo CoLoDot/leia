@@ -13,7 +13,6 @@ import PrivateRoute from "./commons/PrivateRoute";
 import { Provider } from "react-redux";
 import store from "../store";
 import { userLoad } from "../actions/auth";
-import NavBar from "../components/Nav/NavBar";
 
 // Alerting options
 const alertingOptions = {
@@ -33,7 +32,6 @@ class App extends Component {
           <Router>
             <Fragment>
               <Header />
-
               <Alerts />
               <div className="container">
                 <Switch>

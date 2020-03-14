@@ -17,11 +17,10 @@ const useStyles = makeStyles(theme => ({
   },
   gridList: {
     flexWrap: "nowrap",
-    // Promote the list into his own layer on Chrome. This cost memory but helps keeping high FPS.
     transform: "translateZ(0)"
   },
   title: {
-    color: theme.palette.primary.light
+    background: theme.palette.transparent
   },
   titleBar: {
     background:
@@ -35,41 +34,12 @@ const tileData = [
       "https://upload.wikimedia.org/wikipedia/commons/e/e0/ExtinctDodoBird.jpeg",
     title: "Le Dodo",
     author: "author"
-  },
-  {
-    img:
-      "https://upload.wikimedia.org/wikipedia/commons/e/e0/ExtinctDodoBird.jpeg",
-    title: "Le Dodo",
-    author: "author"
-  },
-  {
-    img:
-      "https://upload.wikimedia.org/wikipedia/commons/e/e0/ExtinctDodoBird.jpeg",
-    title: "Le Dodo",
-    author: "author"
-  },
-  {
-    img:
-      "https://upload.wikimedia.org/wikipedia/commons/e/e0/ExtinctDodoBird.jpeg",
-    title: "Le Dodo",
-    author: "author"
-  },
-  {
-    img:
-      "https://upload.wikimedia.org/wikipedia/commons/e/e0/ExtinctDodoBird.jpeg",
-    title: "Le Dodo",
-    author: "author"
-  },
-  {
-    img:
-      "https://upload.wikimedia.org/wikipedia/commons/e/e0/ExtinctDodoBird.jpeg",
-    title: "Le Dodo",
-    author: "author"
   }
 ];
 
 export default function SingleLineGridList() {
   const classes = useStyles();
+
   return (
     <div className={classes.root}>
       <GridList className={classes.gridList} cols={_.size(tileData)}>
@@ -82,11 +52,6 @@ export default function SingleLineGridList() {
                 root: classes.titleBar,
                 title: classes.title
               }}
-              actionIcon={
-                <IconButton aria-label={`star ${tile.title}`}>
-                  <StarBorderIcon className={classes.title} />
-                </IconButton>
-              }
             />
           </GridListTile>
         ))}
