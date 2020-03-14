@@ -17,7 +17,8 @@ import { userLoad } from "../actions/auth";
 // Alerting options
 const alertingOptions = {
   timeout: 3000,
-  position: "top center"
+  position: "bottom center",
+  transition: "scale"
 };
 
 class App extends Component {
