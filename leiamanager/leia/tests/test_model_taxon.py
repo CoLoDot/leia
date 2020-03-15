@@ -11,7 +11,8 @@ class TaxonTestCase(TestCase):
             taxon_name='Dodo',
             taxon_endemic_to='Mauritius Island',
             taxon_extinction_date='1662',
-            taxon_common_category='Raphus cucullatus')
+            taxon_common_category='Raphus cucullatus',
+            taxon_image='Raphus cucullatus')
 
     def test_row_exists(self):
         taxon_row = Taxon.objects.get(taxon_name='Dodo')
@@ -26,7 +27,8 @@ class TaxonTestCase(TestCase):
             taxon_name='Ibis de la Réunion',
             taxon_endemic_to='La réunion',
             taxon_extinction_date='000',
-            taxon_common_category='Blabla')
+            taxon_common_category='Blabla',
+            taxon_image='Raphus cucullatus')
         self.assertEqual(len(Taxon.objects.all()), taxon_model_total_rows + 1)
 
     def test_delete_row(self):
