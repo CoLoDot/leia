@@ -5,54 +5,66 @@ import Autocomplete from "@material-ui/lab/Autocomplete";
 import VerticalLinearStepper from "./Stepper";
 import { connect } from "react-redux";
 import PropTypes from "prop-types";
+import { getTaxon } from "../../actions/taxon";
 
 export class Home extends Component {
   constructor(props) {
     super(props);
 
     this.state = {
-      animals: new Array()
+      taxon: new Array()
     };
 
     this.handleOnChange = this.handleOnChange.bind(this);
   }
 
   static propTypes = {
+    taxon: PropTypes.array.isRequired,
+    getTaxon: PropTypes.func.isRequired,
     isAuthenticated: PropTypes.bool
   };
 
+  componentDidMount() {
+    this.props.getTaxon();
+  }
+
   handleOnChange(value) {
     const toSet = value;
-    this.setState({ animals: toSet });
+    this.setState({ taxon: toSet });
   }
 
   render() {
     if (this.props.isAuthenticated) {
       return <Redirect to="/dashboard" />;
     }
-    const { animals } = this.state;
+    const { taxon } = this.state;
     return (
       <Container fixed>
         <Autocomplete
           style={{ paddingTop: "20px" }}
           multiple
           id="tags-outlined"
-          options={top100Films}
-          getOptionLabel={option => option.title}
+          options={this.props.taxon}
+          getOptionLabel={option =>
+            option.taxon_name ||
+            option.taxon_endemic_to ||
+            option.taxon_extinction_date ||
+            option.taxon_common_category
+          }
           filterSelectedOptions
           onChange={(event, value) => this.handleOnChange(value)}
           renderInput={params => (
             <TextField
               {...params}
               variant="outlined"
-              label="filterSelectedOptions"
-              placeholder="Favorites"
+              label="Look for an exctinct specie"
+              placeholder=" + "
             />
           )}
         />
-        {!_.isEmpty(animals) &&
+        {!_.isEmpty(taxon) &&
           _.reverse(
-            _.map(animals, animal => (
+            _.map(taxon, taxa => (
               <Grid
                 container
                 spacing={3}
@@ -70,7 +82,7 @@ export class Home extends Component {
               >
                 <Grid item xs={3}>
                   <Typography variant="h6" align="center">
-                    {animal.title}
+                    {taxa.taxon_name}
                   </Typography>
                 </Grid>
                 <Grid
@@ -81,9 +93,9 @@ export class Home extends Component {
                   }}
                 >
                   <VerticalLinearStepper
-                    name={animal.title}
-                    year={animal.year}
-                    cause="coming soon"
+                    name={taxa.taxon_common_category}
+                    year={taxa.taxon_extinction_date}
+                    cause={taxa.taxon_endemic_to}
                   />
                 </Grid>
                 <Grid item xs={3}>
@@ -100,10 +112,11 @@ export class Home extends Component {
 }
 
 const mapStateToProps = state => ({
-  isAuthenticated: state.Auth.isAuthenticated
+  isAuthenticated: state.Auth.isAuthenticated,
+  taxon: state.Taxon.taxon
 });
 
-export default connect(mapStateToProps)(Home);
+export default connect(mapStateToProps, { getTaxon })(Home);
 
 const top100Films = [
   { title: "The Shawshank Redemption", year: 1994 },
