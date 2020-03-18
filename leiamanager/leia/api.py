@@ -2,9 +2,11 @@
 from rest_framework import viewsets, permissions
 from .serializers import LeiaSerializer, TaxonSerializer
 from .models import Taxon
-
+from .wikidata import update_model_Taxon
 
 # Leia ViewSet
+
+
 class LeiaViewSet(viewsets.ModelViewSet):
     permission_classes = [
         permissions.IsAuthenticated
@@ -22,5 +24,10 @@ class LeiaViewSet(viewsets.ModelViewSet):
 class TaxonViewSet(viewsets.ModelViewSet):
     queryset = Taxon.objects.all()
     serializer_class = TaxonSerializer
+
+    def get_queryset(self):
+        update_model_Taxon()
+        queryset = super().get_queryset()
+        return queryset
 
 # https://en.wikipedia.org/wiki/Category:IUCN_Red_List_extinct_species
