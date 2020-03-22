@@ -1,6 +1,5 @@
 from django.db import models
 from django.contrib.auth.models import User
-# Create your models here.
 
 
 class Leia(models.Model):
@@ -13,8 +12,11 @@ class Leia(models.Model):
 
 
 class Taxon(models.Model):
-    taxon_name = models.CharField(max_length=100)
-    taxon_endemic_to = models.CharField(max_length=200)
-    taxon_extinction_date = models.CharField(max_length=100)
-    taxon_common_category = models.CharField(max_length=100)
-    taxon_image = models.URLField(default=None)
+    page_id = models.CharField(max_length=100)
+    category = models.CharField(max_length=100)
+    common_name = models.CharField(max_length=100)
+    binomial_name = models.CharField(max_length=100)
+    order = models.CharField(max_length=100)
+    extinction_date = models.CharField(max_length=100)
+    former_range = models.CharField(max_length=100)
+    picture = models.URLField(default=None)
