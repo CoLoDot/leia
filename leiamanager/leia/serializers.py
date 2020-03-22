@@ -2,7 +2,6 @@ from rest_framework import serializers
 from leia.models import Leia, Taxon
 
 
-# Leia Serializer
 class LeiaSerializer(serializers.ModelSerializer):
     class Meta:
         model = Leia
