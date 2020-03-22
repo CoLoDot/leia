@@ -1,10 +1,8 @@
-# from leia.models import Leia
+#!/usr/bin/python3
 from rest_framework import viewsets, permissions
 from .serializers import LeiaSerializer, TaxonSerializer
 from .models import Taxon
 from .wikidata import update_model_Taxon
-
-# Leia ViewSet
 
 
 class LeiaViewSet(viewsets.ModelViewSet):
@@ -20,7 +18,6 @@ class LeiaViewSet(viewsets.ModelViewSet):
         serializer.save(owner=self.request.user)
 
 
-# TaxonViewSet
 class TaxonViewSet(viewsets.ModelViewSet):
     queryset = Taxon.objects.all()
     serializer_class = TaxonSerializer
@@ -29,5 +26,3 @@ class TaxonViewSet(viewsets.ModelViewSet):
         update_model_Taxon()
         queryset = super().get_queryset()
         return queryset
-
-# https://en.wikipedia.org/wiki/Category:IUCN_Red_List_extinct_species
