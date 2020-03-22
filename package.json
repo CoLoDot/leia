@@ -51,7 +51,6 @@
     "@material-ui/lab": "^4.0.0-alpha.45",
     "axios": "^0.19.2",
     "bootstrap-icons": "^1.0.0-alpha2",
-    "jest": "^25.1.0",
     "lodash": "^4.17.15",
     "moment": "^2.24.0",
     "prop-types": "^15.7.2",
