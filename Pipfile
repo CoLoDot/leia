@@ -13,6 +13,7 @@ djangorestframework = "*"
 django-rest-knox = "*"
 coverage = "*"
 requests = "*"
+sparqlwrapper = "*"
 
 [requires]
 python_version = "3.7"
