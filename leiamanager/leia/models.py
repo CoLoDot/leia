@@ -12,11 +12,10 @@ class Leia(models.Model):
 
 
 class Taxon(models.Model):
-    page_id = models.CharField(max_length=100)
-    category = models.CharField(max_length=100)
-    common_name = models.CharField(max_length=100)
-    binomial_name = models.CharField(max_length=100)
-    order = models.CharField(max_length=100)
-    extinction_date = models.CharField(max_length=100)
-    former_range = models.CharField(max_length=100)
-    picture = models.URLField(default=None)
+    page_id = models.CharField(max_length=1000, default='')
+    binomial_name = models.CharField(max_length=100, default='')
+    common_name = models.CharField(max_length=100, default='')
+    taxon_superior = models.CharField(max_length=100, default='')
+    taxonomic_rank = models.CharField(max_length=100, default='')
+    endemic_of = models.CharField(max_length=100, default='')
+    picture = models.CharField(max_length=1000, default='')

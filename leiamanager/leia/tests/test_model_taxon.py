@@ -7,12 +7,11 @@ class TaxonTestCase(TestCase):
     def setUp(self):
         Taxon.objects.create(
             page_id='1234568',
-            category='cat',
+            binomial_name='cat',
             common_name='Dodo',
-            binomial_name='Dodo',
-            order='order',
-            extinction_date='Raphus cucullatus',
-            former_range='map',
+            taxon_superior='Dodo',
+            taxonomic_rank='order',
+            endemic_of='Raphus cucullatus',
             picture='picture')
 
     def test_row_exists(self):
@@ -23,12 +22,11 @@ class TaxonTestCase(TestCase):
         taxon_model_total_rows = len(Taxon.objects.all())
         Taxon.objects.create(
             page_id='1234568',
-            category='cat',
+            binomial_name='cat',
             common_name='Ibis',
-            binomial_name='Ibis',
-            order='order',
-            extinction_date='Raphus cucullatus',
-            former_range='map',
+            taxon_superior='Ibis',
+            taxonomic_rank='order',
+            endemic_of='Raphus cucullatus',
             picture='picture')
         self.assertEqual(len(Taxon.objects.all()), taxon_model_total_rows + 1)
 
