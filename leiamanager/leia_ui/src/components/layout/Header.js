@@ -38,13 +38,13 @@ export class Header extends Component {
                 <Button
                   variant="contained"
                   style={{ marginRight: "10px" }}
-                  disabled
+                  hidden
                 >
                   Create account
                 </Button>
               </Link>
               <Link to="/login">
-                <Button variant="contained" disabled>
+                <Button variant="contained" hidden>
                   Login
                 </Button>
               </Link>

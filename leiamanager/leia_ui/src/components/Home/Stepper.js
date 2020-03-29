@@ -1,12 +1,15 @@
 import React from "react";
 import { makeStyles } from "@material-ui/core/styles";
-import Stepper from "@material-ui/core/Stepper";
-import Step from "@material-ui/core/Step";
-import StepLabel from "@material-ui/core/StepLabel";
-import StepContent from "@material-ui/core/StepContent";
-import Button from "@material-ui/core/Button";
-import Paper from "@material-ui/core/Paper";
-import Typography from "@material-ui/core/Typography";
+import {
+  Button,
+  Paper,
+  Step,
+  StepContent,
+  StepLabel,
+  Stepper,
+  Typography
+} from "@material-ui/core";
+import _ from "lodash";
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -26,23 +29,42 @@ const useStyles = makeStyles(theme => ({
 }));
 
 function getSteps() {
-  return ["Who am I ?", "My year of extinction", "Causes of my extinction"];
+  return ["Who am I ?", "My taxonomic rank", "My taxon superior"];
 }
 
-function getStepContent(step, name, year, cause) {
+function getStepContent(
+  step,
+  binomialName,
+  commonName,
+  endemicOf,
+  taxonomicRank,
+  taxonSuperior
+) {
   switch (step) {
     case 0:
-      return `${name}`;
+      return endemicOf
+        ? `Hi ! My common name is ${_.upperFirst(
+            commonName
+          )} and my binomial name is ${binomialName}, I am endemic of ${endemicOf}.`
+        : `Hi ! My common name is ${_.upperFirst(
+            commonName
+          )} and my binomial name is ${binomialName}.`;
     case 1:
-      return `${year}`;
+      return `My taxonomic rank is : ${taxonomicRank}`;
     case 2:
-      return `${cause}`;
+      return `My taxon superior is : ${taxonSuperior}`;
     default:
       return "Unknown step";
   }
 }
 
-export default function VerticalLinearStepper({ name, year, cause }) {
+export default function VerticalLinearStepper({
+  binomialName,
+  commonName,
+  endemicOf,
+  taxonomicRank,
+  taxonSuperior
+}) {
   const classes = useStyles();
   const [activeStep, setActiveStep] = React.useState(0);
   const steps = getSteps();
@@ -67,7 +89,14 @@ export default function VerticalLinearStepper({ name, year, cause }) {
             <StepLabel>{label}</StepLabel>
             <StepContent>
               <Typography>
-                {getStepContent(index, name, year, cause)}
+                {getStepContent(
+                  index,
+                  binomialName,
+                  commonName,
+                  endemicOf,
+                  taxonomicRank,
+                  taxonSuperior
+                )}
               </Typography>
               <div className={classes.actionsContainer}>
                 <div>
