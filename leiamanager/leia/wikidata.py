@@ -1,5 +1,5 @@
 #!/usr/bin/python3
-from .get_taxon_categories import Taxon
+from .taxon import Taxon
 
 
 def update_model_Taxon():

@@ -12,7 +12,6 @@ USER_AGENT = "Leia/%s.%s" % (
 WIKIDATA_QUERY = """SELECT ?esp_ce__teinte ?esp_ce__teinteLabel ?nom_scientifique_du_taxon ?taxon_sup_rieurLabel ?rang_taxinomiqueLabel ?image ?end_mique_deLabel WHERE {
   SERVICE wikibase:label { bd:serviceParam wikibase:language "en". }
   ?esp_ce__teinte wdt:P141 wd:Q237350.
-  FILTER EXISTS { ?esp_ce__teinte wdt:P18 ?image. }
   OPTIONAL { ?esp_ce__teinte wdt:P225 ?nom_scientifique_du_taxon. }
   OPTIONAL { ?esp_ce__teinte wdt:P171 ?taxon_sup_rieur. }
   OPTIONAL { ?esp_ce__teinte wdt:P105 ?rang_taxinomique. }
