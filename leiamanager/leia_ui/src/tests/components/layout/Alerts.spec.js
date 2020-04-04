@@ -1,3 +1,3 @@
-describe("Alerts", () => {
-  it("should render alerts", () => {});
+describe('Alerts', () => {
+  it('should render alerts', () => {});
 });

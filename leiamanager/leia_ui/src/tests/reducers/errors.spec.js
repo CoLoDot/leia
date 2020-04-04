@@ -1,27 +1,27 @@
-import reducer from "../../reducers/errors";
-import { GET_ERRORS } from "../../actions/types";
+import reducer from '../../reducers/errors';
+import { GET_ERRORS } from '../../actions/types';
 
-describe("Errors reducer", () => {
-  it("should return initial state", () => {
+describe('Errors reducer', () => {
+  it('should return initial state', () => {
     expect(
       reducer([], {
         type: GET_ERRORS,
-        payload: { message: {}, status: null }
-      })
+        payload: { message: {}, status: null },
+      }),
     ).toEqual({
       message: {},
-      status: null
+      status: null,
     });
   });
-  it("should handle GET_ERRORS", () => {
+  it('should handle GET_ERRORS', () => {
     expect(
       reducer([], {
         type: GET_ERRORS,
-        payload: { message: "Fake error mesage", status: 400 }
-      })
+        payload: { message: 'Fake error mesage', status: 400 },
+      }),
     ).toEqual({
-      message: "Fake error mesage",
-      status: 400
+      message: 'Fake error mesage',
+      status: 400,
     });
   });
 });

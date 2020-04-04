@@ -1,14 +1,3 @@
-export const GET_LEADERS = "GET_LEADERS";
-export const DELETE_LEADERS = "DELETE_LEADERS";
-export const ADD_LEADERS = "ADD_LEADERS";
-export const GET_ERRORS = "GET_ERRORS";
-export const GENERATE_MSG = "GENERATE_MSG";
-export const USER_IS_LOADING = "USER_IS_LOADING";
-export const USER_IS_LOADED = "USER_IS_LOADED";
-export const AUTH_ERROR = "AUTH_ERROR";
-export const LOGIN_SUCCESS = "LOGIN_SUCCESS";
-export const LOGIN_FAILED = "LOGIN_FAILED";
-export const LOGOUT_SUCCESS = "LOGOUT_SUCCESS";
-export const REGISTRATION_SUCCESS = "REGISTRATION_SUCCESS";
-export const REGISTRATION_FAILED = "REGISTRATION_FAILED";
-export const GET_TAXON = "GET_TAXON";
+export const GET_ERRORS = 'GET_ERRORS';
+export const GENERATE_MSG = 'GENERATE_MSG';
+export const GET_TAXON = 'GET_TAXON';

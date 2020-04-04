@@ -1,59 +1,48 @@
-import React, { Component } from "react";
-import { connect } from "react-redux";
-import PropTypes from "prop-types";
-import { Redirect } from "react-router-dom";
-import { Container } from "@material-ui/core";
-import { getTaxon } from "../../actions/taxon";
-import TaxonGrid from "./Grid";
-import SearchBar from "./SearchBar";
-import CircularIndeterminate from "./Loader";
-import _ from "lodash";
+/* eslint-disable no-array-constructor */
+/* eslint-disable react/destructuring-assignment */
+/* eslint-disable react/jsx-filename-extension */
+import React, { useState, useEffect } from 'react';
+import { connect } from 'react-redux';
+import PropTypes from 'prop-types';
+import { Container } from '@material-ui/core';
+import _ from 'lodash';
+import { getTaxon } from '../../actions/taxon';
+import TaxonGrid from './Grid';
+import SearchBar from './SearchBar';
+import CircularIndeterminate from './Loader';
+import Numbers from './Numbers';
 
-export class Home extends Component {
-  constructor(props) {
-    super(props);
+const Home = (props) => {
+  useEffect(() => {
+    props.getTaxon();
+  }, []);
 
-    this.state = {
-      taxon: new Array()
-    };
+  const [taxonArray, setTaxonArray] = useState([]);
+  return (
+    <Container fixed>
+      {!_.isEmpty(props.taxon) && <Numbers taxon={props.taxon} />}
+      {!_.isEmpty(props.taxon) ? (
+        <SearchBar
+          taxon={props.taxon}
+          onChangeTaxon={setTaxonArray}
+        />
+      ) : (
+        <CircularIndeterminate />
+      )}
+      <TaxonGrid taxon={taxonArray} />
+    </Container>
+  );
+};
 
-    this.handleOnChange = this.handleOnChange.bind(this);
-  }
+Home.propTypes = {
+  taxon: PropTypes.arrayOf.isRequired,
+  getTaxon: PropTypes.func.isRequired,
+};
 
-  static propTypes = {
-    taxon: PropTypes.array.isRequired,
-    getTaxon: PropTypes.func.isRequired
-  };
-
-  componentDidMount() {
-    this.props.getTaxon();
-  }
-
-  handleOnChange(value) {
-    const toSet = value;
-    this.setState({ taxon: toSet });
-  }
-
-  render() {
-    const { taxon } = this.state;
-    return (
-      <Container fixed>
-        {!_.isEmpty(this.props.taxon) ? (
-          <SearchBar
-            taxon={this.props.taxon}
-            onChangeTaxon={this.handleOnChange}
-          />
-        ) : (
-          <CircularIndeterminate />
-        )}
-        <TaxonGrid taxon={taxon} />
-      </Container>
-    );
-  }
-}
-
-const mapStateToProps = state => ({
-  taxon: state.Taxon.taxon
+const mapStateToProps = (state) => ({
+  taxon: state.Taxon.taxon,
 });
 
-export default connect(mapStateToProps, { getTaxon })(Home);
+const mapDispatchToProps = (dispatch) => ({ getTaxon: () => dispatch(getTaxon()) });
+
+export default connect(mapStateToProps, mapDispatchToProps)(Home);

@@ -1,5 +1,8 @@
-import React from "react";
-import { makeStyles } from "@material-ui/core/styles";
+/* eslint-disable react/require-default-props */
+/* eslint-disable react/jsx-filename-extension */
+import React from 'react';
+import PropTypes from 'prop-types';
+import { makeStyles } from '@material-ui/core/styles';
 import {
   Button,
   Paper,
@@ -7,74 +10,72 @@ import {
   StepContent,
   StepLabel,
   Stepper,
-  Typography
-} from "@material-ui/core";
-import _ from "lodash";
+  Typography,
+} from '@material-ui/core';
+import _ from 'lodash';
 
-const useStyles = makeStyles(theme => ({
+const useStyles = makeStyles((theme) => ({
   root: {
-    width: "100%",
-    borderRadius: "5px"
+    width: '100%',
+    borderRadius: '5px',
   },
   button: {
     marginTop: theme.spacing(1),
-    marginRight: theme.spacing(1)
+    marginRight: theme.spacing(1),
   },
   actionsContainer: {
-    marginBottom: theme.spacing(2)
+    marginBottom: theme.spacing(2),
   },
   resetContainer: {
-    padding: theme.spacing(3)
-  }
+    padding: theme.spacing(3),
+  },
 }));
 
-function getSteps() {
-  return ["Who am I ?", "My taxonomic rank", "My taxon superior"];
-}
+const getSteps = () => ['Who am I ?', 'My taxonomic rank', 'My taxon superior'];
 
-function getStepContent(
+const getStepContent = (
   step,
   binomialName,
   commonName,
   endemicOf,
   taxonomicRank,
-  taxonSuperior
-) {
+  taxonSuperior,
+) => {
   switch (step) {
     case 0:
       return endemicOf
         ? `Hi ! My common name is ${_.upperFirst(
-            commonName
-          )} and my binomial name is ${binomialName}, I am endemic of ${endemicOf}.`
+          commonName,
+        )} and my binomial name is ${binomialName}, I am endemic of ${endemicOf}.`
         : `Hi ! My common name is ${_.upperFirst(
-            commonName
-          )} and my binomial name is ${binomialName}.`;
+          commonName,
+        )} and my binomial name is ${binomialName}.`;
     case 1:
       return `My taxonomic rank is : ${taxonomicRank}`;
     case 2:
       return `My taxon superior is : ${taxonSuperior}`;
     default:
-      return "Unknown step";
+      return 'Unknown step';
   }
-}
+};
 
-export default function VerticalLinearStepper({
+const VerticalLinearStepper = ({
   binomialName,
   commonName,
   endemicOf,
   taxonomicRank,
-  taxonSuperior
-}) {
+  taxonSuperior,
+}) => {
   const classes = useStyles();
   const [activeStep, setActiveStep] = React.useState(0);
   const steps = getSteps();
 
   const handleNext = () => {
-    setActiveStep(prevActiveStep => prevActiveStep + 1);
+    setActiveStep((prevActiveStep) => prevActiveStep + 1);
   };
 
   const handleBack = () => {
-    setActiveStep(prevActiveStep => prevActiveStep - 1);
+    setActiveStep((prevActiveStep) => prevActiveStep - 1);
   };
 
   const handleReset = () => {
@@ -95,7 +96,7 @@ export default function VerticalLinearStepper({
                   commonName,
                   endemicOf,
                   taxonomicRank,
-                  taxonSuperior
+                  taxonSuperior,
                 )}
               </Typography>
               <div className={classes.actionsContainer}>
@@ -113,7 +114,7 @@ export default function VerticalLinearStepper({
                     onClick={handleNext}
                     className={classes.button}
                   >
-                    {activeStep === steps.length - 1 ? "Finish" : "Next"}
+                    {activeStep === steps.length - 1 ? 'Finish' : 'Next'}
                   </Button>
                 </div>
               </div>
@@ -131,4 +132,14 @@ export default function VerticalLinearStepper({
       )}
     </div>
   );
-}
+};
+
+VerticalLinearStepper.propTypes = {
+  binomialName: PropTypes.string,
+  commonName: PropTypes.string,
+  endemicOf: PropTypes.string,
+  taxonomicRank: PropTypes.string,
+  taxonSuperior: PropTypes.string,
+};
+
+export default VerticalLinearStepper;

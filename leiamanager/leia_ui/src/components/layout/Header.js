@@ -1,63 +1,24 @@
-import React, { Component } from "react";
-import { AppBar, Toolbar, Typography, Button } from "@material-ui/core";
-import { Link } from "react-router-dom";
-import { connect } from "react-redux";
-import PropTypes from "prop-types";
-import { userLogout } from "../../actions/auth";
-import _ from "lodash";
+/* eslint-disable react/jsx-filename-extension */
+import React from 'react';
+import {
+  AppBar, Toolbar, Typography,
+} from '@material-ui/core';
+import About from '../About/About';
 
-export class Header extends Component {
-  static propTypes = {
-    auth: PropTypes.object.isRequired,
-    userLogout: PropTypes.func.isRequired
-  };
+const Header = () => (
+  <AppBar position="sticky" color="primary">
+    <Toolbar>
+      <Typography variant="h4" style={{ flex: 1 }}>
+        leia
+      </Typography>
+      <Typography style={{ flex: 20 }}>improves your personal knowledge about extinct species</Typography>
+      <Toolbar style={{ paddingRight: '0px' }}>
+        <>
+          <About />
+        </>
+      </Toolbar>
+    </Toolbar>
+  </AppBar>
+);
 
-  render() {
-    const { isAuthenticated, user } = this.props.auth;
-
-    return (
-      <AppBar position="sticky" color="primary">
-        <Toolbar>
-          <Typography variant="h4" style={{ flex: 1 }}>
-            leia
-          </Typography>
-          {isAuthenticated ? (
-            <Toolbar>
-              <Typography style={{ marginRight: "10px" }}>
-                {user ? `Welcome ${_.upperFirst(user.username)}` : ""}
-              </Typography>
-              <Link to="/">
-                <Button variant="contained" onClick={this.props.userLogout}>
-                  Logout
-                </Button>
-              </Link>
-            </Toolbar>
-          ) : (
-            <Toolbar style={{ paddingRight: "0px" }}>
-              <Link to="/registration">
-                <Button
-                  variant="contained"
-                  style={{ marginRight: "10px" }}
-                  hidden
-                >
-                  Create account
-                </Button>
-              </Link>
-              <Link to="/login">
-                <Button variant="contained" hidden>
-                  Login
-                </Button>
-              </Link>
-            </Toolbar>
-          )}
-        </Toolbar>
-      </AppBar>
-    );
-  }
-}
-
-const mapStateToProps = state => ({
-  auth: state.Auth
-});
-
-export default connect(mapStateToProps, { userLogout })(Header);
+export default Header;
