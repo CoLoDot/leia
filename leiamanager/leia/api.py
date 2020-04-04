@@ -1,4 +1,5 @@
-#!/usr/bin/python3
+# !/usr/bin/python3
+"""Api viewSet"""
 from rest_framework import viewsets, permissions
 from .serializers import LeiaSerializer, TaxonSerializer
 from .models import Taxon
@@ -6,6 +7,7 @@ from .wikidata import update_model_Taxon
 
 
 class LeiaViewSet(viewsets.ModelViewSet):
+    """Leia ViewSet"""
     permission_classes = [
         permissions.IsAuthenticated
     ]
@@ -19,6 +21,7 @@ class LeiaViewSet(viewsets.ModelViewSet):
 
 
 class TaxonViewSet(viewsets.ModelViewSet):
+    """Taxon viewSet"""
     queryset = Taxon.objects.all()
     serializer_class = TaxonSerializer
 
