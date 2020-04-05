@@ -1,0 +1,14 @@
+language: python
+python:
+  - "3.7"
+
+install:
+  - pip install pipenv
+  - pipenv install
+  - npm install jest
+
+script:
+  - cd leiamanager/
+  - coverage run --source='.' manage.py test leia
+  - coverage report
+  - npm test
