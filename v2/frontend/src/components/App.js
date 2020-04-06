@@ -4,7 +4,6 @@
 /* eslint-disable import/no-named-as-default-member */
 /* eslint-disable react/jsx-filename-extension */
 import React, { Component } from 'react';
-import ReactDom from 'react-dom';
 import { Provider as AlertProvider } from 'react-alert';
 import AlertTemplate from 'react-alert-template-basic';
 import { HashRouter as Router, Route } from 'react-router-dom';
@@ -41,4 +40,4 @@ class App extends Component {
   }
 }
 
-ReactDom.render(<App />, document.getElementById('app'));
+export default App;

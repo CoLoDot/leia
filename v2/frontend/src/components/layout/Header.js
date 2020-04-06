@@ -11,7 +11,7 @@ const Header = () => (
       <Typography variant="h4" style={{ flex: 1 }}>
         leia
       </Typography>
-      <Typography style={{ flex: 20 }}>improves your personal knowledge about extinct species</Typography>
+      <Typography style={{ flex: 16 }}>improves your personal knowledge about extinct species</Typography>
       <Toolbar style={{ paddingRight: '0px' }}>
         <>
           <About />

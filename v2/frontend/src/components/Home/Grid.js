@@ -46,7 +46,7 @@ const TaxonGrid = ({ taxon }) => (
               />
             </Grid>,
               <Grid item>
-                <ButtonBase style={{ width: 240, height: 340 }}>
+                <ButtonBase style={{ width: 280, height: 340}}>
                   <img
                     style={{
                       display: 'block',

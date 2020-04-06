@@ -2,7 +2,7 @@
 /* eslint-disable react/jsx-filename-extension */
 import React, { forwardRef, useState } from 'react';
 import {
-  Button, Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle, Slide, Typography,
+  Button, Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle, Slide,
 } from '@material-ui/core/';
 
 
