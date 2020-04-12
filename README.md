@@ -1,11 +1,76 @@
-# Leia
+# Leia 1.0
 
 Leia is a full stack application. This is an API build with python and Django Rest Framework using React.JS in user interface.
 
-### Setup
+## Back-end
 
-Before lauching the project locally you need to install those dependencies: 
-- Docker
-- make
+### Install a virtual env and dependencies
 
-WIP...
+#### 1 - Install Pipenv
+
+```
+pip3 install pipenv
+```
+
+#### 2 - Activate virtual env
+
+```
+pipenv shell
+```
+
+#### 3 - Install dependencies
+
+```
+pipenv install
+```
+
+### Run the API
+
+To start the devlopment server
+
+```
+cd leiamanager/
+./manage.py runserver
+```
+
+### Stop the API
+
+```
+^C
+```
+
+### Run tests
+
+```
+cd leiamanager/
+./manage.py test
+```
+
+OR (if you need a coverage report)
+
+```
+cd leiamanager/
+coverage run --source='.' manage.py test leia
+coverage report
+```
+
+## Front-end
+
+### Build dev mode
+
+```
+npm install jest
+npm run dev
+```
+
+### Run tests
+
+```
+npm test
+```
+
+with watch mode
+
+```
+npm run test:watch
+```
