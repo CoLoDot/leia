@@ -14,12 +14,11 @@ install:
   - pip install pipenv
   - pipenv install
   - cd frontend/
-  - npm install jest
+  - npm install jest@24.9.0
   - cd ../
 
 script:
   - make test_backend
   - make test_frontend
-  - npm uninstall jest
-  - make up
+  - make build
   - make status
