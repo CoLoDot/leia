@@ -10,8 +10,10 @@ branches:
 install:
   - pip install pipenv
   - pipenv install
+  - cd frontend/
   - npm install jest
+  - cd ../
 
 script:
-  - make test_frontend
   - make test_backend
+  - make test_frontend
