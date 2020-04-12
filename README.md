@@ -1,6 +1,6 @@
 # Leia 2.0
 
-Leia is a full stack application. This is an API build with python and Django Rest Framework using React.JS in user interface.
+Leia is an open source project built with python and javascript.
 
 ### Setup
 
@@ -8,4 +8,12 @@ Before lauching the project locally you need to install those dependencies:
 - Docker
 - make
 
-WIP...
+## Launch
+
+> make : this command will launch the app 
+
+## Run Tests
+
+> make test_frontend
+
+> make test_backend
