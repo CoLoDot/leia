@@ -1,5 +1,5 @@
 from django.test import TestCase
-from leia.models import Taxon
+from leia_api.models import Taxon
 
 
 class TaxonTestCase(TestCase):
