@@ -4,7 +4,7 @@ Leia is an open source project built with python and javascript.
 
 ### Setup
 
-Before lauching the project locally you need to install those dependencies: 
+Before launching the project locally you need to install those dependencies: 
 - Docker
 - make
 
@@ -13,6 +13,7 @@ Before lauching the project locally you need to install those dependencies:
 > make : this command will launch the app 
 
 ## Run Tests
+> make shell
 
 > make test_frontend
 
