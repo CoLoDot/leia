@@ -1,7 +1,7 @@
 /* eslint-disable import/prefer-default-export */
 import axios from 'axios';
 import { GET_TAXON } from './types';
-import { returnErrors } from './messages';
+import { returnErrors } from './errors';
 
 export const getTaxon = () => (dispatch) => axios
   .get('/api/taxon/')

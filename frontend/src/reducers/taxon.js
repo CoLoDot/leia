@@ -1,5 +1,5 @@
 /* eslint-disable import/extensions */
-import { GET_TAXON } from '../actions/types.js';
+import { GET_TAXON } from '../actions/types';
 
 const initialState = {
   taxon: [],
