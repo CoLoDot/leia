@@ -17,4 +17,5 @@ WIKIDATA_QUERY = """SELECT ?esp_ce__teinte ?esp_ce__teinteLabel ?nom_scientifiqu
   OPTIONAL { ?esp_ce__teinte wdt:P105 ?rang_taxinomique. }
   OPTIONAL { ?esp_ce__teinte wdt:P18 ?image. }
   OPTIONAL { ?esp_ce__teinte wdt:P183 ?end_mique_de. }
+  OPTIONAL { ?esp_ce__teinte wdt:P2040 ?identifiant_Species_. }
 }"""
