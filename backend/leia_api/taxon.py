@@ -39,6 +39,7 @@ class Taxon:
                     'taxon_superior': '',
                     'taxonomic_rank': '',
                     'endemic_of': '',
+                    'cites_id': '',
                     'picture': ''
                 }
 
@@ -78,6 +79,12 @@ class Taxon:
                 except KeyError:
                     pass
 
+                # CITES identifier
+                try:
+                    taxa_to_insert['cites_id'] = taxa['identifiant_Species_']
+                except KeyError:
+                    pass
+
                 # picture
                 try:
                     taxa_to_insert['picture'] = taxa['image']
@@ -91,4 +98,5 @@ class Taxon:
                     taxon_superior=taxa_to_insert['taxon_superior'],
                     taxonomic_rank=taxa_to_insert['taxonomic_rank'],
                     endemic_of=taxa_to_insert['endemic_of'],
+                    cites_id=taxa_to_insert['cites_id'],
                     picture=taxa_to_insert['picture'])
