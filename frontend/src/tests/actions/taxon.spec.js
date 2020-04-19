@@ -1,9 +1,9 @@
 /* eslint-disable no-undef */
 import moxios from 'moxios';
 import expect from 'expect';
-import { GET_TAXON } from '../../actions/types';
+import { GET_TAXA } from '../../actions/types';
 import { returnErrors } from '../../actions/errors';
-import { getTaxon } from '../../actions/taxon';
+import { getTaxa } from '../../actions/taxa';
 import configureMockStore from 'redux-mock-store';
 import thunk from 'redux-thunk';
 
@@ -41,7 +41,7 @@ describe('getTaxon action', () => {
     });
 
     const expectedActions = [
-      { type: GET_TAXON, payload: {
+      { type: GET_TAXA, payload: {
           id:1,
           page_id:"http://www.wikidata.org/entity/Q305696",
           binomial_name:"Heteropsomys insulans",
@@ -55,7 +55,7 @@ describe('getTaxon action', () => {
 
     const store = mockStore({ taxon: {} })
 
-    return store.dispatch(getTaxon()).then(() => {
+    return store.dispatch(getTaxa()).then(() => {
       expect(store.getActions()).toEqual(expectedActions);
     });
 });

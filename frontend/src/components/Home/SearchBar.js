@@ -8,14 +8,14 @@ import _ from 'lodash';
 
 const MEDIA_AVAILABLE = 'MEDIA AVAILABLE';
 
-const displayOptions = (option) => (option.picture ? `${_.upperFirst(option.common_name || option.binomial_name)} - ${MEDIA_AVAILABLE}` : _.upperFirst(option.common_name || option.binomial_name));
+const displayOptions = (option) => (option.picture ? `${_.upperFirst(option.name || option.scientific_name)} - ${MEDIA_AVAILABLE}` : _.upperFirst(option.name || option.scientific_name));
 
-const SearchBar = ({ taxon, onChangeTaxon }) => (
+const SearchBar = ({ taxa, onChangeTaxon }) => (
   <Autocomplete
     style={{ paddingTop: '20px' }}
     multiple
     id="tags-outlined"
-    options={taxon}
+    options={taxa}
     getOptionLabel={(option) => displayOptions(option)}
     filterSelectedOptions
     onChange={(event, value) => onChangeTaxon(value)}
@@ -31,7 +31,7 @@ const SearchBar = ({ taxon, onChangeTaxon }) => (
 );
 
 SearchBar.propTypes = {
-  taxon: PropTypes.arrayOf.isRequired,
+  taxa: PropTypes.arrayOf.isRequired,
   onChangeTaxon: PropTypes.func.isRequired,
 };
 

@@ -5,18 +5,16 @@ import { ButtonBase, Typography, Grid } from '@material-ui/core';
 import _ from 'lodash';
 import VerticalLinearStepper from './Stepper';
 
-const TaxonGrid = ({ taxon }) => (
-  !_.isEmpty(taxon)
+const TaxonGrid = ({ taxa }) => (
+  !_.isEmpty(taxa)
     && _.reverse(
-      _.map(taxon, (taxa) => (
+      _.map(taxa, (taxon) => (
         <Grid
           container
           spacing={3}
           alignItems="center"
           style={{
-            borderRadius: '5px',
-            backgroundColor: '#3f51b5',
-            color: '#FFFFFF',
+            color: '#000000',
             padding: '0px',
             width: 'calc(100%)',
             marginLeft: '0px',
@@ -24,37 +22,42 @@ const TaxonGrid = ({ taxon }) => (
             marginBottom: '15px',
           }}
         >
-          <Grid item xs={3}>
+          <Grid item xs={2}>
             <Typography variant="h6" align="center">
-              {_.upperFirst(taxa.common_name)}
+              {_.upperFirst(taxon.name)}
             </Typography>
           </Grid>
-          {taxa.picture
+          {taxon.picture
             ? [<Grid
               item
-              xs={6}
+              xs={4}
               style={{
                 padding: '0px',
               }}
             >
               <VerticalLinearStepper
-                binomialName={taxa.binomial_name}
-                commonName={taxa.common_name}
-                endemicOf={taxa.endemic_of}
-                taxonomicRank={taxa.taxonomic_rank}
-                taxonSuperior={taxa.taxon_superior}
+                scientificName={taxon.scientific_name}
+                kingdom={taxon.kingdom}
+                phylum={taxon.phylum}
+                order={taxon.order}
+                family={taxon.family}
+                genus={taxon.genus}
+                species={taxon.species}
+                taxonClass={taxon.taxon_class}
+                distribution={taxon.distribution}
+                setOrientation="vertical"
               />
             </Grid>,
               <Grid item>
-                <ButtonBase style={{ width: 280, height: 340}}>
+                <ButtonBase style={{ width: 590, height: 600}}>
                   <img
                     style={{
                       display: 'block',
                       maxWidth: '100%',
                       maxHeight: '100%',
                     }}
-                    src={taxa.picture}
-                    alt={taxa.common_name}
+                    src={taxon.picture}
+                    alt={taxon.name}
                   />
                 </ButtonBase>
               </Grid>] : (
@@ -66,11 +69,16 @@ const TaxonGrid = ({ taxon }) => (
                   }}
                 >
                   <VerticalLinearStepper
-                    binomialName={taxa.binomial_name}
-                    commonName={taxa.common_name}
-                    endemicOf={taxa.endemic_of}
-                    taxonomicRank={taxa.taxonomic_rank}
-                    taxonSuperior={taxa.taxon_superior}
+                    scientificName={taxon.scientific_name}
+                    kingdom={taxon.kingdom}
+                    phylum={taxon.phylum}
+                    order={taxon.order}
+                    family={taxon.family}
+                    genus={taxon.genus}
+                    species={taxon.species}
+                    taxonClass={taxon.taxon_class}
+                    distribution={taxon.distribution}
+                    setOrientation="horizontal"
                   />
                 </Grid>
             )}
@@ -80,7 +88,7 @@ const TaxonGrid = ({ taxon }) => (
 );
 
 TaxonGrid.propTypes = {
-  taxon: PropTypes.arrayOf.isRequired,
+  taxa: PropTypes.arrayOf.isRequired,
 };
 
 export default TaxonGrid;

@@ -9,24 +9,24 @@ import PhotoLibraryIcon from '@material-ui/icons/PhotoLibrary';
 import PropTypes from 'prop-types';
 import _ from 'lodash';
 
-const getNumberOfMediaAvailable = ({ taxon }) => _.size(_.filter(taxon, (taxa) => taxa.picture));
+const getNumberOfMediaAvailable = ({ taxa }) => _.size(_.filter(taxa, (taxon) => taxon.picture));
 
-const Numbers = ({ taxon }) => (
+const Numbers = ({ taxa }) => (
   <div style={{
     display: 'flex', paddingTop: '20px', textAlign: 'center', justifyContent: 'space-between',
   }}
   >
-    <Badge badgeContent={_.size(taxon)} max={_.size(taxon)} color="primary">
-      <Chip variant="outlined" icon={<PetsIcon />} label="Taxon available in leia database" />
+    <Badge badgeContent={_.size(taxa)} max={_.size(taxa)} color="primary">
+      <Chip variant="outlined" icon={<PetsIcon />} label="Taxa available in leia database" />
     </Badge>
-    <Badge badgeContent={getNumberOfMediaAvailable({ taxon })} max={getNumberOfMediaAvailable({ taxon })} color="primary">
+    <Badge badgeContent={getNumberOfMediaAvailable({ taxa })} max={getNumberOfMediaAvailable({ taxa })} color="primary">
       <Chip variant="outlined" icon={<PhotoLibraryIcon />} label="Taxon's pictures available" />
     </Badge>
   </div>
 );
 
 Numbers.propTypes = {
-  taxon: PropTypes.arrayOf.isRequired,
+  taxa: PropTypes.arrayOf.isRequired,
 };
 
 export default Numbers;

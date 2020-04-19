@@ -1,8 +1,8 @@
 import { combineReducers } from 'redux';
 import Errors from './errors';
-import Taxon from './taxon';
+import Taxa from './taxa';
 
 export default combineReducers({
   Errors,
-  Taxon,
+  Taxa,
 });

@@ -1,16 +1,16 @@
 /* eslint-disable import/extensions */
-import { GET_TAXON } from '../actions/types';
+import { GET_TAXA } from '../actions/types';
 
 const initialState = {
-  taxon: [],
+  taxa: [],
 };
 
 export default function (state = initialState, action) {
   switch (action.type) {
-    case GET_TAXON:
+    case GET_TAXA:
       return {
         ...state,
-        taxon: action.payload,
+        taxa: action.payload,
       };
     default:
       return state;

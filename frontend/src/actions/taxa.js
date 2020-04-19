@@ -1,13 +1,13 @@
 /* eslint-disable import/prefer-default-export */
 import axios from 'axios';
-import { GET_TAXON } from './types';
+import { GET_TAXA } from './types';
 import { returnErrors } from './errors';
 
-export const getTaxon = () => (dispatch) => axios
-  .get('/api/taxon/')
+export const getTaxa = () => (dispatch) => axios
+  .get('/api/taxa/')
   .then((res) => {
     dispatch({
-      type: GET_TAXON,
+      type: GET_TAXA,
       payload: res.data,
     });
   })

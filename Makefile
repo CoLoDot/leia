@@ -22,6 +22,12 @@ clean:
 shell:
 	pipenv shell
 
+run_backend:
+	cd ./backend && ./manage.py runserver
+
+migrations:
+	cd ./backend && ./manage.py makemigrations && ./manage.py migrate
+
 test_frontend:
 	cd ./frontend && npm test
 

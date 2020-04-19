@@ -24,47 +24,62 @@ const useStyles = makeStyles((theme) => ({
     marginRight: theme.spacing(1),
   },
   actionsContainer: {
-    marginBottom: theme.spacing(2),
+    marginBottom: theme.spacing(0),
   },
   resetContainer: {
     padding: theme.spacing(3),
   },
 }));
 
-const getSteps = () => ['Who am I ?', 'My taxonomic rank', 'My taxon superior'];
+const getSteps = () => ['Scientifc name', 'Kingdom', 'Phylum', 'Order', 'Family', 'Genus', 'Species', 'Class', 'Distribution'];
 
 const getStepContent = (
   step,
-  binomialName,
-  commonName,
-  endemicOf,
-  taxonomicRank,
-  taxonSuperior,
+  scientificName,
+  kingdom, 
+  phylum, 
+  order, 
+  family, 
+  genus,
+  species,
+  taxonClass,
+  distribution
 ) => {
   switch (step) {
     case 0:
-      return endemicOf
-        ? `Hi ! My common name is ${_.upperFirst(
-          commonName,
-        )} and my binomial name is ${binomialName}, I am endemic of ${endemicOf}.`
-        : `Hi ! My common name is ${_.upperFirst(
-          commonName,
-        )} and my binomial name is ${binomialName}.`;
+      return scientificName
     case 1:
-      return `My taxonomic rank is : ${taxonomicRank}`;
+      return kingdom
     case 2:
-      return `My taxon superior is : ${taxonSuperior}`;
+      return phylum
+    case 3:
+      return order
+    case 4:
+      return family
+    case 5:
+      return genus
+    case 6:
+      return species
+    case 7:
+      return taxonClass
+    case 8:
+      return distribution
     default:
       return 'Unknown step';
   }
 };
 
 const VerticalLinearStepper = ({
-  binomialName,
-  commonName,
-  endemicOf,
-  taxonomicRank,
-  taxonSuperior,
+  scientificName,
+  kingdom, 
+  phylum, 
+  order, 
+  family, 
+  genus,
+  species,
+  taxonClass,
+  distribution,
+  setOrientation
 }) => {
   const classes = useStyles();
   const [activeStep, setActiveStep] = React.useState(0);
@@ -84,7 +99,7 @@ const VerticalLinearStepper = ({
 
   return (
     <div className={classes.root}>
-      <Stepper activeStep={activeStep} orientation="vertical">
+      <Stepper activeStep={activeStep} orientation={setOrientation}>
         {steps.map((label, index) => (
           <Step key={label}>
             <StepLabel>{label}</StepLabel>
@@ -92,11 +107,15 @@ const VerticalLinearStepper = ({
               <Typography>
                 {getStepContent(
                   index,
-                  binomialName,
-                  commonName,
-                  endemicOf,
-                  taxonomicRank,
-                  taxonSuperior,
+                  scientificName,
+                  kingdom, 
+                  phylum, 
+                  order, 
+                  family, 
+                  genus,
+                  species,
+                  taxonClass,
+                  distribution
                 )}
               </Typography>
               <div className={classes.actionsContainer}>

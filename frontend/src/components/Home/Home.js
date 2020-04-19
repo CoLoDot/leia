@@ -6,7 +6,7 @@ import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import { Container } from '@material-ui/core';
 import _ from 'lodash';
-import { getTaxon } from '../../actions/taxon';
+import { getTaxa } from '../../actions/taxa';
 import TaxonGrid from './Grid';
 import SearchBar from './SearchBar';
 import CircularIndeterminate from './Loader';
@@ -14,35 +14,35 @@ import Numbers from './Numbers';
 
 const Home = (props) => {
   useEffect(() => {
-    props.getTaxon();
+    props.getTaxa();
   }, []);
 
-  const [taxonArray, setTaxonArray] = useState([]);
+  const [taxaArray, setTaxaArray] = useState([]);
   return (
     <Container fixed>
-      {!_.isEmpty(props.taxon) && <Numbers taxon={props.taxon} />}
-      {!_.isEmpty(props.taxon) ? (
+      {!_.isEmpty(props.taxa) && <Numbers taxa={props.taxa} />}
+      {!_.isEmpty(props.taxa) ? (
         <SearchBar
-          taxon={props.taxon}
-          onChangeTaxon={setTaxonArray}
+          taxa={props.taxa}
+          onChangeTaxon={setTaxaArray}
         />
       ) : (
         <CircularIndeterminate />
       )}
-      <TaxonGrid taxon={taxonArray} />
+      <TaxonGrid taxa={taxaArray} />
     </Container>
   );
 };
 
 Home.propTypes = {
-  taxon: PropTypes.arrayOf.isRequired,
-  getTaxon: PropTypes.func.isRequired,
+  taxa: PropTypes.arrayOf.isRequired,
+  getTaxa: PropTypes.func.isRequired,
 };
 
 const mapStateToProps = (state) => ({
-  taxon: state.Taxon.taxon,
+  taxa: state.Taxa.taxa,
 });
 
-const mapDispatchToProps = (dispatch) => ({ getTaxon: () => dispatch(getTaxon()) });
+const mapDispatchToProps = (dispatch) => ({ getTaxa: () => dispatch(getTaxa()) });
 
 export default connect(mapStateToProps, mapDispatchToProps)(Home);

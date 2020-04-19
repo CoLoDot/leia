@@ -1,8 +1,8 @@
 #!/usr/bin/python3
+import requests
 from SPARQLWrapper import SPARQLWrapper, JSON
-from .constants import URL, USER_AGENT, WIKIDATA_QUERY
+from .constants import URL, USER_AGENT, WIKIDATA_QUERY, GBIF_API_SUGGEST_URL, GBIF_API_DISTRIBUTIONS_PREFIX_URL, GBIF_API_DISTRIBUTIONS_SUFFIX_URL, GBIF_API_MEDIA_PREFIX_URL, GBIF_API_MEDIA_SUFFIX_URL
 from leia_api.models import Taxon as taxon_model
-
 
 class Taxon:
 
@@ -11,7 +11,31 @@ class Taxon:
         self.user_agent = USER_AGENT
         self.query = WIKIDATA_QUERY
         self.wikidata_results = {}
-        self.taxon_data = []
+        self.taxa = []
+        self.wiki_data = {
+            'page_id': '',
+            'name': '',
+            'endemic_of': '',
+            'picture': ''
+            }
+        self.taxonomy = {
+            'gbif_key': '',
+            'scientific_name': '',
+            'kingdom': '',
+            'phylum': '',
+            'order': '',
+            'family': '',
+            'genus': '',
+            'species': '',
+            'taxon_class': ''
+            }
+        self.distribution = {
+            'locality': ''
+            }
+        self.gbif_media = {
+            'picture_src': '',
+            'picture_description': ''
+            }
 
     def get_sparql_wikidata(self):
         sparql = SPARQLWrapper(self.endpoint_url, agent=self.user_agent)
@@ -19,84 +43,123 @@ class Taxon:
         sparql.setReturnFormat(JSON)
         self.wikidata_results = sparql.query().convert()
 
-    def get_taxon_data(self):
+    def get_taxa(self):
         for result in self.wikidata_results["results"]["bindings"]:
             taxon_data_to_get = {}
             get_result_keys = result.keys()
             for key in get_result_keys:
                 taxon_data_to_get[key] = result[key].get('value')
-            self.taxon_data.append(taxon_data_to_get)
+            self.taxa.append(taxon_data_to_get)
 
-    def insert_taxon_data(self):
-        for taxa in self.taxon_data:
+    def retrieve_wiki_data(self, taxon: dict):
+        try:self.wiki_data['page_id'] = taxon['esp_ce__teinte']
+        except KeyError:pass
+
+        try:self.wiki_data['name'] = taxon['nom_scientifique_du_taxon']
+        except KeyError:pass
+
+        try:self.wiki_data['endemic_of'] = taxon['end_mique_deLabel']
+        except KeyError:pass
+
+        try:self.wiki_data['picture'] = taxon['image']
+        except KeyError:pass
+
+    def get_gbif_taxonomy(self, name: str):
+        payload = {'q': name, 'limit': 1}
+        gbif_request = requests.get(url=GBIF_API_SUGGEST_URL, params=payload)
+        gbif_response = gbif_request.json()
+        
+        for row in gbif_response:
+            try:self.taxonomy['gbif_key'] = row['key']
+            except KeyError:pass
+
+            try:self.taxonomy['scientific_name'] = row['scientificName']
+            except KeyError:pass
+
+            try:self.taxonomy['kingdom'] = row['kingdom']
+            except KeyError:pass
+
+            try:self.taxonomy['phylum'] = row['phylum']
+            except KeyError:pass
+
+            try:self.taxonomy['order'] = row['order']
+            except KeyError:pass
+
+            try:self.taxonomy['family'] = row['family']
+            except KeyError:pass
+            
+            try:self.taxonomy['genus'] = row['genus']
+            except KeyError:pass
+            
+            try:self.taxonomy['species'] = row['species']
+            except KeyError:pass
+            
+            try:self.taxonomy['taxon_class'] = row['class']
+            except KeyError:pass
+
+    def get_gbif_distributions(self, key: str):
+        gbif_request = requests.get(url=GBIF_API_DISTRIBUTIONS_PREFIX_URL + str(key) + GBIF_API_DISTRIBUTIONS_SUFFIX_URL)
+        gbif_response = gbif_request.json()
+        if len(gbif_response['results']) >= 1:
+            distibution_item = []
+            for distribution in gbif_response['results']:
+                try:
+                    if not distribution['locality'] in distibution_item:
+                        distibution_item.append(distribution['locality'])
+                except KeyError:
+                    pass
+            self.distribution['locality'] = ",".join(distibution_item)
+            
+    def get_gbif_media(self, key: str):
+        payload = {'limit': 1}
+        gbif_request = requests.get(url=GBIF_API_MEDIA_PREFIX_URL + str(key) + GBIF_API_MEDIA_SUFFIX_URL, param=payload)
+        gbif_response = gbif_request.json()
+
+        if len(gbif_response['results']) >= 1:
+            for row in gbif_response['results']:
+                try:self.wiki_data['picture'] = row['identifier']
+                except KeyError:pass
+
+                try:self.gbif_media['picture_src'] = row['source']
+                except KeyError:pass
+
+                try:self.gbif_media['picture_description'] = row['description']
+                except KeyError:pass
+
+    def insert_taxa(self):
+        for taxon in self.taxa:
             if not taxon_model.objects.filter(
-                    page_id__icontains=taxa['esp_ce__teinte']):
+                    page_id__icontains=taxon['esp_ce__teinte']):
 
-                taxa_to_insert = {
-                    'page_id': '',
-                    'binomial_name': '',
-                    'common_name': '',
-                    'taxon_superior': '',
-                    'taxonomic_rank': '',
-                    'endemic_of': '',
-                    'cites_id': '',
-                    'picture': ''
-                }
+                self.retrieve_wiki_data(taxon)
+                self.get_gbif_taxonomy(self.wiki_data.get('name'))
 
-                # page_id
-                try:
-                    taxa_to_insert['page_id'] = taxa['esp_ce__teinte']
-                except KeyError:
-                    pass
+                if self.taxonomy.get('gbif_key'):
+                    self.get_gbif_distributions(self.taxonomy.get('gbif_key'))
 
-                # common_name
-                try:
-                    taxa_to_insert['common_name'] = taxa['esp_ce__teinteLabel']
-                except KeyError:
-                    pass
+                    if self.taxonomy.get('picture') == '':
+                        self.get_gbif_media(self.taxonomy.get('gbif_key'))
 
-                # binomial_name
-                try:
-                    taxa_to_insert['binomial_name'] = taxa['nom_scientifique_du_taxon']
-                except KeyError:
-                    pass
-
-                # taxon superior
-                try:
-                    taxa_to_insert['taxon_superior'] = taxa['taxon_sup_rieurLabel']
-                except KeyError:
-                    pass
-
-                # taxonomic_rank
-                try:
-                    taxa_to_insert['taxonomic_rank'] = taxa['rang_taxinomiqueLabel']
-                except KeyError:
-                    pass
-
-                # endemic_of
-                try:
-                    taxa_to_insert['endemic_of'] = taxa['end_mique_deLabel']
-                except KeyError:
-                    pass
-
-                # CITES identifier
-                try:
-                    taxa_to_insert['cites_id'] = taxa['identifiant_Species_']
-                except KeyError:
-                    pass
-
-                # picture
-                try:
-                    taxa_to_insert['picture'] = taxa['image']
-                except KeyError:
-                    pass
-
-                taxon_model.objects.create(
-                    page_id=taxa_to_insert['page_id'],
-                    binomial_name=taxa_to_insert['binomial_name'],
-                    common_name=taxa_to_insert['common_name'],
-                    taxon_superior=taxa_to_insert['taxon_superior'],
-                    taxonomic_rank=taxa_to_insert['taxonomic_rank'],
-                    endemic_of=taxa_to_insert['endemic_of'],
-                    cites_id=taxa_to_insert['cites_id'],
-                    picture=taxa_to_insert['picture'])
+                    taxon_model.objects.create(
+                        page_id=self.wiki_data.get('page_id'),
+                        gbif_key=self.taxonomy.get('gbif_key'),
+                        name=self.wiki_data.get('name'),
+                        scientific_name=self.taxonomy.get('scientific_name'),
+                        endemic_of=self.wiki_data.get('endemic_of'),
+                        picture=self.wiki_data.get('picture'),
+                        picture_src=self.gbif_media.get('picture_src'),
+                        picture_description=self.gbif_media.get('picture_description'),
+                        kingdom=self.taxonomy.get('kingdom'),
+                        phylum=self.taxonomy.get('phylum'),
+                        order=self.taxonomy.get('order'),
+                        family=self.taxonomy.get('family'),
+                        genus=self.taxonomy.get('genus'),
+                        species=self.taxonomy.get('species'),
+                        taxon_class=self.taxonomy.get('taxon_class'),
+                        distribution=self.distribution.get('locality')
+                        )
+                
+                self.wiki_data.update({}.fromkeys(self.wiki_data, ''))
+                self.taxonomy.update({}.fromkeys(self.taxonomy, ''))
+                self.distribution.update({}.fromkeys(self.distribution, ''))
+                self.gbif_media.update({}.fromkeys(self.gbif_media, ''))

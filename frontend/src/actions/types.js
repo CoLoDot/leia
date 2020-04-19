@@ -1,2 +1,2 @@
 export const GET_ERRORS = 'GET_ERRORS';
-export const GET_TAXON = 'GET_TAXON';
+export const GET_TAXA = 'GET_TAXA';

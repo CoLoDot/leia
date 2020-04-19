@@ -1,11 +1,11 @@
-import reducer from '../../reducers/taxon';
-import { GET_TAXON } from '../../actions/types';
+import reducer from '../../reducers/taxa';
+import { GET_TAXA } from '../../actions/types';
 
 describe('Taxon reducer', () => {
   it('should return getTaxon payload', () => {
     expect(
       reducer([], {
-        type: GET_TAXON,
+        type: GET_TAXA,
         payload: { id:1,
             page_id:"http://www.wikidata.org/entity/Q305696",
             binomial_name:"Heteropsomys insulans",
@@ -16,7 +16,7 @@ describe('Taxon reducer', () => {
             picture:""},
       }),
     ).toEqual({
-      taxon: {id:1,
+      taxa: {id:1,
         page_id:"http://www.wikidata.org/entity/Q305696",
         binomial_name:"Heteropsomys insulans",
         common_name:"Insular cave rat",

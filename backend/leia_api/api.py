@@ -3,7 +3,7 @@
 from rest_framework import viewsets, permissions
 from .serializers import TaxonSerializer
 from .models import Taxon
-from .wikidata import update_model_Taxon
+from .get_data import update_model_Taxon
 
 class TaxonViewSet(viewsets.ModelViewSet):
     """Taxon viewSet"""
