@@ -11,7 +11,7 @@ import TaxonGrid from './Grid';
 import SearchBar from './SearchBar';
 import CircularIndeterminate from './Loader';
 import Numbers from './Numbers';
-
+import TaxaTabs from './Tab'
 const Home = (props) => {
   useEffect(() => {
     props.getTaxa();
@@ -29,7 +29,7 @@ const Home = (props) => {
       ) : (
         <CircularIndeterminate />
       )}
-      <TaxonGrid taxa={taxaArray} />
+      <TaxaTabs taxa={taxaArray} />
     </Container>
   );
 };

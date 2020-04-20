@@ -23,7 +23,10 @@ shell:
 	pipenv shell
 
 run_backend:
-	cd ./backend && ./manage.py runserver
+	cd ./backend && ./manage.py runserver 0.0.0.0:8000
+
+run_frontend:
+	cd ./frontend && npm start
 
 migrations:
 	cd ./backend && ./manage.py makemigrations && ./manage.py migrate
