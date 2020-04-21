@@ -6,7 +6,7 @@ import Tab from '@material-ui/core/Tab';
 import Typography from '@material-ui/core/Typography';
 import Box from '@material-ui/core/Box';
 import _ from 'lodash';
-import TaxonGrid from './Grid'
+import TaxonCard from './Card'
 
 function TabPanel(props) {
     const { children, value, index, ...other } = props;
@@ -47,6 +47,7 @@ const useStyles = makeStyles((theme) => ({
         paddingTop: '2%'
     },
     tabs: {
+        width: '400px',
         borderRight: `1px solid ${theme.palette.divider}`,
     },
 }));
@@ -72,7 +73,7 @@ const TaxaTabs = ({ taxa }) => {
             >
                 {_.map(taxa, (taxon) => <Tab label={taxon.name} {...a11yProps(_.indexOf(taxa, taxon, 0))} />)}
             </Tabs>
-            {_.map(taxa, (taxon) => <TabPanel value={value} index={_.indexOf(taxa, taxon)}><TaxonGrid taxon={taxon}/></TabPanel>)}
+            {_.map(taxa, (taxon) => <TabPanel value={value} index={_.indexOf(taxa, taxon)} style={{ display: 'flex', flexDirection: 'column', justifyContent: 'center'}}><TaxonCard taxon={taxon}/></TabPanel>)}
         </div>
     );
 }
