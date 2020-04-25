@@ -1,3 +1,5 @@
+/* eslint-disable react/jsx-filename-extension */
+/* eslint-disable react/jsx-props-no-spreading */
 import React from 'react';
 import PropTypes from 'prop-types';
 import { makeStyles } from '@material-ui/core/styles';
@@ -6,76 +8,84 @@ import Tab from '@material-ui/core/Tab';
 import Typography from '@material-ui/core/Typography';
 import Box from '@material-ui/core/Box';
 import _ from 'lodash';
-import TaxonCard from './Card'
+import TaxonCard from './Card';
 
 function TabPanel(props) {
-    const { children, value, index, ...other } = props;
+  const {
+    children, value, index, ...other
+  } = props;
 
-    return (
-        <Typography
-            component="div"
-            role="tabpanel"
-            hidden={value !== index}
-            id={`vertical-tabpanel-${index}`}
-            aria-labelledby={`vertical-tab-${index}`}
-            {...other}
-        >
-            {value === index && <Box p={3}>{children}</Box>}
-        </Typography>
-    );
+  return (
+    <Typography
+      component="div"
+      role="tabpanel"
+      hidden={value !== index}
+      id={`vertical-tabpanel-${index}`}
+      aria-labelledby={`vertical-tab-${index}`}
+      {...other}
+    >
+      {value === index && <Box p={3}>{children}</Box>}
+    </Typography>
+  );
 }
 
 TabPanel.propTypes = {
-    children: PropTypes.node,
-    index: PropTypes.any.isRequired,
-    value: PropTypes.any.isRequired,
+  children: PropTypes.node,
+  index: PropTypes.any.isRequired,
+  value: PropTypes.any.isRequired,
 };
 
 function a11yProps(index) {
-    return {
-        id: `vertical-tab-${index}`,
-        'aria-controls': `vertical-tabpanel-${index}`,
-    };
+  return {
+    id: `vertical-tab-${index}`,
+    'aria-controls': `vertical-tabpanel-${index}`,
+  };
 }
 
 const useStyles = makeStyles((theme) => ({
-    root: {
-        flexGrow: 1,
-        backgroundColor: theme.palette.background.paper,
-        display: 'flex',
-        height: '70%',
-        paddingTop: '2%'
-    },
-    tabs: {
-        width: '400px',
-        borderRight: `1px solid ${theme.palette.divider}`,
-    },
+  root: {
+    flexGrow: 1,
+    backgroundColor: theme.palette.background.paper,
+    display: 'flex',
+    height: '70%',
+    paddingTop: '2%',
+  },
+  tabs: {
+    width: '300px',
+    borderRight: `1px solid ${theme.palette.divider}`,
+  },
 }));
 
 const TaxaTabs = ({ taxa }) => {
-    const classes = useStyles();
-    const [value, setValue] = React.useState(0);
+  const classes = useStyles();
+  const [value, setValue] = React.useState(0);
 
-    const handleChange = (event, newValue) => {
-        setValue(newValue);
-    };
+  const handleChange = (event, newValue) => {
+    setValue(newValue);
+  };
 
-    return (
-        !_.isEmpty(taxa) && <div className={classes.root}>
-            <Tabs
-                orientation="vertical"
-                variant="scrollable"
-                value={value}
-                onChange={handleChange}
-                aria-label="Taxa vertical tabs"
-                className={classes.tabs}
-                indicatorColor='primary'
-            >
-                {_.map(taxa, (taxon) => <Tab label={taxon.name} {...a11yProps(_.indexOf(taxa, taxon, 0))} />)}
-            </Tabs>
-            {_.map(taxa, (taxon) => <TabPanel value={value} index={_.indexOf(taxa, taxon)} style={{ display: 'flex', flexDirection: 'column', justifyContent: 'center'}}><TaxonCard taxon={taxon}/></TabPanel>)}
-        </div>
-    );
-}
+  return (
+    !_.isEmpty(taxa) && (
+    <div className={classes.root}>
+      <Tabs
+        orientation="vertical"
+        variant="scrollable"
+        value={value}
+        onChange={handleChange}
+        aria-label="Taxa vertical tabs"
+        className={classes.tabs}
+        indicatorColor="primary"
+      >
+        {_.map(taxa, (taxon) => <Tab label={taxon.name} {...a11yProps(_.indexOf(taxa, taxon, 0))} />)}
+      </Tabs>
+      {_.map(taxa, (taxon) => (
+        <TabPanel value={value} index={_.indexOf(taxa, taxon)}>
+          <TaxonCard taxon={taxon} />
+        </TabPanel>
+      ))}
+    </div>
+    )
+  );
+};
 
-export default TaxaTabs
+export default TaxaTabs;

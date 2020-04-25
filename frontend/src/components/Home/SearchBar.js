@@ -10,10 +10,12 @@ const MEDIA_AVAILABLE = 'MEDIA AVAILABLE';
 
 const displayOptions = (option) => (option.picture ? `${_.upperFirst(option.name || option.scientific_name)} - ${MEDIA_AVAILABLE}` : _.upperFirst(option.name || option.scientific_name));
 
+
 const SearchBar = ({ taxa, onChangeTaxon }) => (
   <Autocomplete
     style={{ paddingTop: '20px' }}
     multiple
+    limitTags={3}
     id="tags-outlined"
     options={taxa}
     getOptionLabel={(option) => displayOptions(option)}

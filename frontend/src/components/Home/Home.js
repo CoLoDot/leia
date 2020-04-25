@@ -7,11 +7,10 @@ import PropTypes from 'prop-types';
 import { Container } from '@material-ui/core';
 import _ from 'lodash';
 import { getTaxa } from '../../actions/taxa';
-import TaxonGrid from './Grid';
 import SearchBar from './SearchBar';
 import CircularIndeterminate from './Loader';
-import Numbers from './Numbers';
-import TaxaTabs from './Tab'
+import TaxaTabs from './Tab';
+
 const Home = (props) => {
   useEffect(() => {
     props.getTaxa();
@@ -20,7 +19,6 @@ const Home = (props) => {
   const [taxaArray, setTaxaArray] = useState([]);
   return (
     <Container fixed>
-      {!_.isEmpty(props.taxa) && <Numbers taxa={props.taxa} />}
       {!_.isEmpty(props.taxa) ? (
         <SearchBar
           taxa={props.taxa}
