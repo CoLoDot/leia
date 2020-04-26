@@ -8,6 +8,7 @@ import Tab from '@material-ui/core/Tab';
 import Typography from '@material-ui/core/Typography';
 import Box from '@material-ui/core/Box';
 import _ from 'lodash';
+import AppBar from '@material-ui/core/AppBar';
 import TaxonCard from './Card';
 
 function TabPanel(props) {
@@ -45,14 +46,8 @@ function a11yProps(index) {
 const useStyles = makeStyles((theme) => ({
   root: {
     flexGrow: 1,
-    backgroundColor: theme.palette.background.paper,
-    display: 'flex',
-    height: '70%',
-    paddingTop: '2%',
-  },
-  tabs: {
-    width: '300px',
-    borderRight: `1px solid ${theme.palette.divider}`,
+    width: '100%',
+    marginTop: '10px',
   },
 }));
 
@@ -67,17 +62,19 @@ const TaxaTabs = ({ taxa }) => {
   return (
     !_.isEmpty(taxa) && (
     <div className={classes.root}>
-      <Tabs
-        orientation="vertical"
-        variant="scrollable"
-        value={value}
-        onChange={handleChange}
-        aria-label="Taxa vertical tabs"
-        className={classes.tabs}
-        indicatorColor="primary"
-      >
-        {_.map(taxa, (taxon) => <Tab label={taxon.name} {...a11yProps(_.indexOf(taxa, taxon, 0))} />)}
-      </Tabs>
+      <AppBar position="static" color="transparent">
+        <Tabs
+          scrollButtons="on"
+          variant="scrollable"
+          value={value}
+          onChange={handleChange}
+          aria-label="Taxa vertical tabs"
+          className={classes.tabs}
+          indicatorColor="primary"
+        >
+          {_.map(taxa, (taxon) => <Tab label={taxon.vernacularName || taxon.name} {...a11yProps(_.indexOf(taxa, taxon, 0))} />)}
+        </Tabs>
+      </AppBar>
       {_.map(taxa, (taxon) => (
         <TabPanel value={value} index={_.indexOf(taxa, taxon)}>
           <TaxonCard taxon={taxon} />

@@ -15,6 +15,7 @@ import HelpIcon from '@material-ui/icons/Help';
 import IconButton from '@material-ui/core/IconButton';
 import CloseIcon from '@material-ui/icons/Close';
 import ZoomInIcon from '@material-ui/icons/ZoomIn';
+import FingerprintIcon from '@material-ui/icons/Fingerprint';
 import TaxonTaxonomyTable from './TaxonTaxonomyTable';
 
 const useStyles = makeStyles((theme) => ({
@@ -33,9 +34,11 @@ const useStyles = makeStyles((theme) => ({
   },
   identity: {
     display: 'flex',
+    flexDirection: 'column',
     justifyContent: 'center',
     height: '100px',
-    alignItems: 'center',
+    width: 'max-content',
+    alignItems: 'left',
     paddingLeft: '10px',
     paddingRight: '10px',
   },
@@ -60,6 +63,7 @@ const useStyles = makeStyles((theme) => ({
   taxonomy: {
     display: 'flex',
     flexDirection: 'column',
+    width: '-webkit-fill-available',
     '& > *': {
       marginBottom: theme.spacing(1),
     },
@@ -70,33 +74,56 @@ const useStyles = makeStyles((theme) => ({
     top: theme.spacing(1),
     color: theme.palette.grey[500],
   },
+  global: {
+    display: 'flex',
+    flexDirection: 'row',
+  },
 }));
 
-const TaxonIdentity = ({ classes, scientificName }) => (
-  <Paper
-    variant="elevation"
-    className={classes}
-  >
-    <Typography>
-      {scientificName}
-    </Typography>
-  </Paper>
+const TaxonIdentity = ({ classes, scientificName, vernacularName }) => (
+  <>
+    {vernacularName && (
+    <Paper
+      variant="elevation"
+      className={classes}
+    >
+      <Typography variant="caption">
+        vernacular name:
+      </Typography>
+      <Typography>
+        {vernacularName}
+      </Typography>
+    </Paper>
+    )}
+    <Paper
+      variant="elevation"
+      className={classes}
+    >
+      <Typography variant="caption">
+        scientific name and taxon's author:
+      </Typography>
+      <Typography>
+        {scientificName}
+      </Typography>
+    </Paper>
+  </>
 );
 
 TaxonIdentity.propTypes = {
   classes: PropTypes.isRequired,
   scientificName: PropTypes.string.isRequired,
+  vernacularName: PropTypes.string.isRequired,
 };
 
 const Taxonomy = ({
-  kingdom,
-  phylum,
   order,
-  family,
   genus,
-  species,
-  taxonClass,
+  phylum,
+  family,
   classes,
+  species,
+  kingdom,
+  taxonClass,
 }) => (
   <div className={classes}>
     <Typography>
@@ -106,11 +133,11 @@ const Taxonomy = ({
       </Tooltip>
     </Typography>
     <TaxonTaxonomyTable
-      kingdom={kingdom}
-      phylum={phylum}
       order={order}
-      family={family}
       genus={genus}
+      family={family}
+      phylum={phylum}
+      kingdom={kingdom}
       species={species}
       taxonClass={taxonClass}
     />
@@ -118,21 +145,27 @@ const Taxonomy = ({
 );
 
 Taxonomy.propTypes = {
-  kingdom: PropTypes.string,
-  phylum: PropTypes.string,
-  order: PropTypes.string,
-  family: PropTypes.string,
-  genus: PropTypes.string,
-  species: PropTypes.string,
-  taxonClass: PropTypes.string,
+  kingdom: PropTypes.string.isRequired,
+  phylum: PropTypes.string.isRequired,
+  order: PropTypes.string.isRequired,
+  family: PropTypes.string.isRequired,
+  genus: PropTypes.string.isRequired,
+  species: PropTypes.string.isRequired,
+  taxonClass: PropTypes.string.isRequired,
   classes: PropTypes.isRequired,
 };
 const TaxonMedia = ({ classes, name, picture }) => {
   const [open, setOpen] = useState(false);
   return (
-    <>
+    <div style={{
+      width: 300,
+      display: 'flex',
+      paddingRight: 10,
+      justifyContent: 'center',
+      alignItems: 'center',
+    }}
+    >
       <Button onClick={() => setOpen(true)}>
-
         <Badge
           anchorOrigin={{
             vertical: 'top',
@@ -143,14 +176,13 @@ const TaxonMedia = ({ classes, name, picture }) => {
           <img
             style={{
               display: 'block',
-              maxWidth: '400px',
-              maxHeight: '100px',
+              maxWidth: 299,
+              maxHeight: 319,
             }}
             src={picture}
             alt={name}
           />
         </Badge>
-
       </Button>
       <Dialog
         open={open}
@@ -183,7 +215,7 @@ const TaxonMedia = ({ classes, name, picture }) => {
           </DialogContentText>
         </DialogContent>
       </Dialog>
-    </>
+    </div>
   );
 };
 
@@ -217,35 +249,53 @@ TaxonDataSources.propTypes = {
   wikidataPageId: PropTypes.string.isRequired,
 };
 
+const LeiaTaxonId = ({ leiaID }) => (
+  <Typography>
+    {`leia ID : ${leiaID}`}
+  </Typography>
+);
+
+LeiaTaxonId.propTypes = {
+  leiaID: PropTypes.number.isRequired,
+};
+
 const TaxonCard = ({
   taxon: {
+    id,
     name,
-    scientific_name,
-    gbif_key,
-    page_id,
-    distribution,
-    kingdom,
-    phylum,
     order,
-    family,
     genus,
+    family,
+    phylum,
+    kingdom,
     species,
-    taxon_class,
     picture,
+    gbifKey,
+    taxonClass,
+    distribution,
+    wikidataPageID,
+    vernacularName,
+    scientificName,
   },
 }) => {
   const classes = useStyles();
   return (
-    <div className={classes.root}>
-      <div className={classes.element}>
-        <ArrowForwardIosIcon />
-        <TaxonIdentity
-          scientificName={scientific_name}
-          classes={classes.identity}
-        />
-        {picture && <TaxonMedia name={name} picture={picture} classes={classes.mediaCloseButton} />}
-      </div>
-      {distribution && (
+    <div className={classes.global}>
+      {picture && <TaxonMedia name={name} picture={picture} classes={classes.mediaCloseButton} />}
+      <div className={classes.root}>
+        <div className={classes.element}>
+          <FingerprintIcon />
+          <LeiaTaxonId leiaID={id} />
+        </div>
+        <div className={classes.element}>
+          <ArrowForwardIosIcon />
+          <TaxonIdentity
+            scientificName={scientificName}
+            vernacularName={vernacularName}
+            classes={classes.identity}
+          />
+        </div>
+        {distribution && (
         <div className={classes.element}>
           <PlaceIcon />
           <TaxonDistribution
@@ -253,27 +303,28 @@ const TaxonCard = ({
             classes={classes.distribution}
           />
         </div>
-      )}
-      <div className={classes.element}>
-        <InfoIcon />
-        <Taxonomy
-          kingdom={kingdom}
-          phylum={phylum}
-          order={order}
-          family={family}
-          genus={genus}
-          species={species}
-          taxonClass={taxon_class}
-          classes={classes.taxonomy}
-        />
-      </div>
-      <div className={classes.element}>
-        <StorageIcon />
-        <TaxonDataSources
-          gbifKey={gbif_key}
-          wikidataPageId={page_id}
-          classes={classes.datasources}
-        />
+        )}
+        <div className={classes.element}>
+          <InfoIcon />
+          <Taxonomy
+            kingdom={kingdom}
+            phylum={phylum}
+            order={order}
+            family={family}
+            genus={genus}
+            species={species}
+            taxonClass={taxonClass}
+            classes={classes.taxonomy}
+          />
+        </div>
+        <div className={classes.element}>
+          <StorageIcon />
+          <TaxonDataSources
+            gbifKey={gbifKey}
+            wikidataPageId={wikidataPageID}
+            classes={classes.datasources}
+          />
+        </div>
       </div>
     </div>
   );

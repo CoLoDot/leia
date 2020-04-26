@@ -1,7 +1,7 @@
 #!/usr/bin/python3
 import requests
 from SPARQLWrapper import SPARQLWrapper, JSON
-from .constants import URL, USER_AGENT, WIKIDATA_QUERY, GBIF_API_SUGGEST_URL, GBIF_API_DISTRIBUTIONS_PREFIX_URL, GBIF_API_DISTRIBUTIONS_SUFFIX_URL, GBIF_API_MEDIA_PREFIX_URL, GBIF_API_MEDIA_SUFFIX_URL
+from .constants import URL, USER_AGENT, WIKIDATA_QUERY, GBIF_API_SUGGEST_URL, GBIF_API_DISTRIBUTIONS_PREFIX_URL, GBIF_API_DISTRIBUTIONS_SUFFIX_URL
 from leia_api.models import Taxon as taxon_model
 
 class Taxon:
@@ -14,8 +14,8 @@ class Taxon:
         self.taxa = []
         self.wiki_data = {
             'page_id': '',
+            'vernacular_name': '',
             'name': '',
-            'endemic_of': '',
             'picture': ''
             }
         self.taxonomy = {
@@ -31,10 +31,6 @@ class Taxon:
             }
         self.distribution = {
             'locality': ''
-            }
-        self.gbif_media = {
-            'picture_src': '',
-            'picture_description': ''
             }
 
     def get_sparql_wikidata(self):
@@ -55,10 +51,10 @@ class Taxon:
         try:self.wiki_data['page_id'] = taxon['esp_ce__teinte']
         except KeyError:pass
 
-        try:self.wiki_data['name'] = taxon['nom_scientifique_du_taxon']
+        try:self.wiki_data['vernacular_name'] = taxon['nom_vernaculaire']
         except KeyError:pass
 
-        try:self.wiki_data['endemic_of'] = taxon['end_mique_deLabel']
+        try:self.wiki_data['name'] = taxon['nom_scientifique_du_taxon']
         except KeyError:pass
 
         try:self.wiki_data['picture'] = taxon['image']
@@ -109,22 +105,6 @@ class Taxon:
                 except KeyError:
                     pass
             self.distribution['locality'] = ",".join(distibution_item)
-            
-    def get_gbif_media(self, key: str):
-        payload = {'limit': 1}
-        gbif_request = requests.get(url=GBIF_API_MEDIA_PREFIX_URL + str(key) + GBIF_API_MEDIA_SUFFIX_URL, param=payload)
-        gbif_response = gbif_request.json()
-
-        if len(gbif_response['results']) >= 1:
-            for row in gbif_response['results']:
-                try:self.wiki_data['picture'] = row['identifier']
-                except KeyError:pass
-
-                try:self.gbif_media['picture_src'] = row['source']
-                except KeyError:pass
-
-                try:self.gbif_media['picture_description'] = row['description']
-                except KeyError:pass
 
     def insert_taxa(self):
         for taxon in self.taxa:
@@ -137,18 +117,13 @@ class Taxon:
                 if self.taxonomy.get('gbif_key'):
                     self.get_gbif_distributions(self.taxonomy.get('gbif_key'))
 
-                    if self.taxonomy.get('picture') == '':
-                        self.get_gbif_media(self.taxonomy.get('gbif_key'))
-
                     taxon_model.objects.create(
                         page_id=self.wiki_data.get('page_id'),
                         gbif_key=self.taxonomy.get('gbif_key'),
                         name=self.wiki_data.get('name'),
+                        vernacular_name=self.wiki_data.get('vernacular_name'),
                         scientific_name=self.taxonomy.get('scientific_name'),
-                        endemic_of=self.wiki_data.get('endemic_of'),
                         picture=self.wiki_data.get('picture'),
-                        picture_src=self.gbif_media.get('picture_src'),
-                        picture_description=self.gbif_media.get('picture_description'),
                         kingdom=self.taxonomy.get('kingdom'),
                         phylum=self.taxonomy.get('phylum'),
                         order=self.taxonomy.get('order'),
@@ -162,4 +137,3 @@ class Taxon:
                 self.wiki_data.update({}.fromkeys(self.wiki_data, ''))
                 self.taxonomy.update({}.fromkeys(self.taxonomy, ''))
                 self.distribution.update({}.fromkeys(self.distribution, ''))
-                self.gbif_media.update({}.fromkeys(self.gbif_media, ''))

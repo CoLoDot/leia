@@ -12,7 +12,7 @@ import PropTypes from 'prop-types';
 
 const useStyles = makeStyles({
   table: {
-    maxWidth: 400,
+    // maxWidth: 400,
   },
 });
 
