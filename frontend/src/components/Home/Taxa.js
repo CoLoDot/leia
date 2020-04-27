@@ -9,7 +9,7 @@ import Typography from '@material-ui/core/Typography';
 import Box from '@material-ui/core/Box';
 import _ from 'lodash';
 import AppBar from '@material-ui/core/AppBar';
-import TaxonCard from './Card';
+import TaxonContainer from '../Taxon/TaxonContainer';
 
 function TabPanel(props) {
   const {
@@ -51,7 +51,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const TaxaTabs = ({ taxa }) => {
+const Taxa = ({ taxa }) => {
   const classes = useStyles();
   const [value, setValue] = React.useState(0);
 
@@ -77,7 +77,7 @@ const TaxaTabs = ({ taxa }) => {
       </AppBar>
       {_.map(taxa, (taxon) => (
         <TabPanel value={value} index={_.indexOf(taxa, taxon)}>
-          <TaxonCard taxon={taxon} />
+          <TaxonContainer taxon={taxon} />
         </TabPanel>
       ))}
     </div>
@@ -85,4 +85,4 @@ const TaxaTabs = ({ taxa }) => {
   );
 };
 
-export default TaxaTabs;
+export default Taxa;

@@ -4,12 +4,12 @@
 import React, { useState, useEffect } from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
-import { Container } from '@material-ui/core';
+import { Container, Typography } from '@material-ui/core';
 import _ from 'lodash';
 import { getTaxa } from '../../actions/taxa';
 import SearchBar from './SearchBar';
-import CircularIndeterminate from './Loader';
-import TaxaTabs from './Tab';
+import Loader from './Loader';
+import Taxa from './Taxa';
 
 const Home = (props) => {
   useEffect(() => {
@@ -25,9 +25,9 @@ const Home = (props) => {
           onChangeTaxon={setTaxaArray}
         />
       ) : (
-        <CircularIndeterminate />
+        <Loader />
       )}
-      <TaxaTabs taxa={taxaArray} />
+      <Taxa taxa={taxaArray} />
     </Container>
   );
 };
