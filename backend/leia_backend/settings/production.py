@@ -1,6 +1,5 @@
 import os
 import sentry_sdk
-import dj_database_url
 from leia_backend.settings.base import *
 from sentry_sdk.integrations.django import DjangoIntegration
 
@@ -27,5 +26,5 @@ STATIC_ROOT = os.path.join(BASE_DIR, "staticfiles")
 STATIC_URL = "/static/"
 WHITENOISE_ROOT = os.path.join(BASE_DIR, "../", "frontend", "build", "root")
 
-db_from_env = dj_database_url.config(conn_max_age=500)
-DATABASES['default'].update(db_from_env)
+import dj_database_url
+DATABASES['default'] = dj_database_url.config(conn_max_age=600, ssl_require=True)
