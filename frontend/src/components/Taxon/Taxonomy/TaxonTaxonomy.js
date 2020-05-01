@@ -4,18 +4,18 @@ import { Tooltip, Typography } from '@material-ui/core';
 import PropTypes from 'prop-types';
 import HelpIcon from '@material-ui/icons/Help';
 import TaxonTaxonomyTable from './TaxonTaxonomyTable';
+import '../../../styles/Taxon.scss';
 
 const Taxonomy = ({
   order,
   genus,
   phylum,
   family,
-  classes,
   species,
   kingdom,
   taxonClass,
 }) => (
-  <div className={classes}>
+  <div className="taxon-taxonomy">
     <Typography>
       Taxonomy
       <Tooltip title="In biology, taxonomy is a branch of science that encompasses the description, identification, nomenclature, and classification of organisms. (src : wikidata)" arrow>
@@ -42,7 +42,6 @@ Taxonomy.propTypes = {
   genus: PropTypes.string.isRequired,
   species: PropTypes.string.isRequired,
   taxonClass: PropTypes.string.isRequired,
-  classes: PropTypes.isRequired,
 };
 
 export default Taxonomy;

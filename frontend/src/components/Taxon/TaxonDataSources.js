@@ -2,20 +2,20 @@
 import React from 'react';
 import { Button } from '@material-ui/core';
 import PropTypes from 'prop-types';
+import '../../styles/Taxon.scss';
 
-const TaxonDataSources = ({ classes, gbifKey, wikidataPageId }) => (
-  <div className={classes}>
-    <Button variant="contained" href={wikidataPageId}>
+const TaxonDataSources = ({ gbifKey, wikidataPageId }) => (
+  <div className="taxon-datasources">
+    <Button variant="contained" href={wikidataPageId} target="_blank">
       Wikidata
     </Button>
-    <Button variant="contained" href={`https://www.gbif.org/species/${gbifKey}`}>
+    <Button variant="contained" href={`https://www.gbif.org/species/${gbifKey}`} target="_blank">
       GBIF
     </Button>
   </div>
 );
 
 TaxonDataSources.propTypes = {
-  classes: PropTypes.isRequired,
   gbifKey: PropTypes.string.isRequired,
   wikidataPageId: PropTypes.string.isRequired,
 };

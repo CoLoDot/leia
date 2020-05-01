@@ -1,0 +1,52 @@
+.taxon-global {
+    display: flex;
+    flex-direction: row;
+}
+.taxon-tab-container {
+    display: flex;
+    flex: auto;
+    flex-direction: column;
+    justify-content: center;
+}
+.taxon-tab-element {
+    display: flex;
+    flex-direction: row;
+    margin: 10;
+    align-items: center;
+
+    & > * {
+        margin: 10;
+    }
+}
+
+.taxon-identity {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    height: 100;
+    width: max-content;
+    align-items: left;
+    padding-left: 10;
+    padding-right: 10;
+}
+
+.taxon-taxonomy {
+    display: flex;
+    flex-direction: column;
+    width: -webkit-fill-available;
+    & > * {
+        margin-bottom: 10;
+    }
+}
+
+.taxon-datasources {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    width: 410;
+    & > * {
+        margin-right: 10;
+        width: 200;
+        height: 50;
+    }
+}

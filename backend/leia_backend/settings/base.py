@@ -2,28 +2,19 @@
 Django settings for leia_backend project.
 
 """
-
 import os
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
-BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+BASE_DIR = os.path.abspath(os.path.join(os.path.dirname(__file__), "../../"))
 
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/3.0/howto/deployment/checklist/
 
-# SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = '!y5d*9p_zoxob(7o9qn042ded6cuw)9f33z$n$*_!j_i_2&$79'
-
-# SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
-
-ALLOWED_HOSTS = ['backend', '0.0.0.0', '127.0.0.1']
-
-
 # Application definition
 
 INSTALLED_APPS = [
+    'django_crontab',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -33,6 +24,10 @@ INSTALLED_APPS = [
     'leia_api',
     'rest_framework',
     'knox',
+]
+
+CRONJOBS = [
+    ('0 7 * * 7', 'leia_api.cron.update_model_taxon')
 ]
 
 REST_FRAMEWORK = {
@@ -72,11 +67,14 @@ WSGI_APPLICATION = 'leia_backend.wsgi.application'
 
 # Database
 # https://docs.djangoproject.com/en/3.0/ref/settings/#databases
-
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
+        'ENGINE': 'django.db.backends.postgresql',
+        'NAME': 'postgres',
+        'USER': 'postgres',
+        'PASSWORD': '',
+        'HOST': '',
+        'PORT': '5432',
     }
 }
 

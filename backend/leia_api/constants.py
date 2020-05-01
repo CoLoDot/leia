@@ -14,7 +14,8 @@ WIKIDATA_QUERY = """SELECT ?esp_ce__teinte ?esp_ce__teinteLabel ?nom_scientifiqu
   ?esp_ce__teinte wdt:P141 wd:Q237350.
   OPTIONAL { ?esp_ce__teinte wdt:P225 ?nom_scientifique_du_taxon. }
   OPTIONAL { ?esp_ce__teinte wdt:P18 ?image. }
-  OPTIONAL { ?esp_ce__teinte wdt:P1843 ?nom_vernaculaire. }
+  OPTIONAL { ?esp_ce__teinte wdt:P1843 ?nom_vernaculaire.
+           FILTER(lang(?nom_vernaculaire) = "en")}
 }
 """
 

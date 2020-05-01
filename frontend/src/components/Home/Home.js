@@ -4,7 +4,7 @@
 import React, { useState, useEffect } from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
-import { Container, Typography } from '@material-ui/core';
+import { Container } from '@material-ui/core';
 import _ from 'lodash';
 import { getTaxa } from '../../actions/taxa';
 import SearchBar from './SearchBar';

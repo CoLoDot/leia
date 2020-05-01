@@ -6,7 +6,7 @@ class Taxon(models.Model):
     name = models.CharField(max_length=100, default='')
     vernacular_name = models.CharField(max_length=100, default='')
     scientific_name = models.CharField(max_length=100, default='')
-    picture = models.CharField(max_length=100, default='')
+    picture = models.CharField(max_length=2000, default='')
     kingdom = models.CharField(max_length=100, default='')
     phylum = models.CharField(max_length=100, default='')
     order = models.CharField(max_length=100, default='')

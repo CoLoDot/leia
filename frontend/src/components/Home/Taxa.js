@@ -1,6 +1,6 @@
 /* eslint-disable react/jsx-filename-extension */
 /* eslint-disable react/jsx-props-no-spreading */
-import React from 'react';
+import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import { makeStyles } from '@material-ui/core/styles';
 import Tabs from '@material-ui/core/Tabs';
@@ -11,7 +11,7 @@ import _ from 'lodash';
 import AppBar from '@material-ui/core/AppBar';
 import TaxonContainer from '../Taxon/TaxonContainer';
 
-function TabPanel(props) {
+const TabPanel = (props) => {
   const {
     children, value, index, ...other
   } = props;
@@ -28,20 +28,18 @@ function TabPanel(props) {
       {value === index && <Box p={3}>{children}</Box>}
     </Typography>
   );
-}
-
-TabPanel.propTypes = {
-  children: PropTypes.node,
-  index: PropTypes.any.isRequired,
-  value: PropTypes.any.isRequired,
 };
 
-function a11yProps(index) {
-  return {
-    id: `vertical-tab-${index}`,
-    'aria-controls': `vertical-tabpanel-${index}`,
-  };
-}
+TabPanel.propTypes = {
+  children: PropTypes.node.isRequired,
+  index: PropTypes.isRequired,
+  value: PropTypes.isRequired,
+};
+
+const a11yProps = (index) => ({
+  id: `vertical-tab-${index}`,
+  'aria-controls': `vertical-tabpanel-${index}`,
+});
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -53,12 +51,10 @@ const useStyles = makeStyles((theme) => ({
 
 const Taxa = ({ taxa }) => {
   const classes = useStyles();
-  const [value, setValue] = React.useState(0);
-
+  const [value, setValue] = useState(0);
   const handleChange = (event, newValue) => {
     setValue(newValue);
   };
-
   return (
     !_.isEmpty(taxa) && (
     <div className={classes.root}>
@@ -72,7 +68,14 @@ const Taxa = ({ taxa }) => {
           className={classes.tabs}
           indicatorColor="primary"
         >
-          {_.map(taxa, (taxon) => <Tab label={taxon.vernacularName || taxon.name} {...a11yProps(_.indexOf(taxa, taxon, 0))} />)}
+          {_.map(taxa, (taxon) => (
+            <Tab
+              label={taxon.vernacularName || taxon.name}
+              {...a11yProps(
+                _.indexOf(taxa, taxon, 0),
+              )}
+            />
+          ))}
         </Tabs>
       </AppBar>
       {_.map(taxa, (taxon) => (
@@ -83,6 +86,10 @@ const Taxa = ({ taxa }) => {
     </div>
     )
   );
+};
+
+Taxa.propTypes = {
+  taxa: PropTypes.arrayOf.isRequired,
 };
 
 export default Taxa;

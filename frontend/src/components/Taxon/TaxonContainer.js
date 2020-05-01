@@ -13,58 +13,14 @@ import TaxonIdentity from './TaxonIdentity';
 import Taxonomy from './Taxonomy/TaxonTaxonomy';
 import TaxonMedia from './TaxonMedia';
 import TaxonDistribution from './TaxonDistribution';
+import '../../styles/Taxon.scss';
 
 const useStyles = makeStyles((theme) => ({
-  root: {
-    display: 'flex',
-    flex: 'auto',
-    flexDirection: 'column',
-    justifyContent: 'center',
-  },
-  element: {
-    display: 'flex',
-    flexDirection: 'row',
-    margin: '10px',
-    alignItems: 'center',
-    '& > *': { margin: theme.spacing(1) },
-  },
-  identity: {
-    display: 'flex',
-    flexDirection: 'column',
-    justifyContent: 'center',
-    height: '100px',
-    width: 'max-content',
-    alignItems: 'left',
-    paddingLeft: '10px',
-    paddingRight: '10px',
-  },
-  datasources: {
-    display: 'flex',
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    '& > *': {
-      marginRight: theme.spacing(1),
-      width: theme.spacing(20),
-      height: theme.spacing(5),
-    },
-  },
-  taxonomy: {
-    display: 'flex',
-    flexDirection: 'column',
-    width: '-webkit-fill-available',
-    '& > *': {
-      marginBottom: theme.spacing(1),
-    },
-  },
   mediaCloseButton: {
     position: 'absolute',
     right: theme.spacing(1),
     top: theme.spacing(1),
     color: theme.palette.grey[500],
-  },
-  global: {
-    display: 'flex',
-    flexDirection: 'row',
   },
 }));
 
@@ -90,30 +46,29 @@ const TaxonCard = ({
 }) => {
   const classes = useStyles();
   return (
-    <div className={classes.global}>
+    <div className="taxon-global">
       {picture && <TaxonMedia name={name} picture={picture} classes={classes.mediaCloseButton} />}
-      <div className={classes.root}>
-        <div className={classes.element}>
+      <div className="taxon-tab-container">
+        <div className="taxon-tab-element">
           <FingerprintIcon />
           <LeiaTaxonId leiaID={id} />
         </div>
-        <div className={classes.element}>
+        <div className="taxon-tab-element">
           <ArrowForwardIosIcon />
           <TaxonIdentity
             scientificName={scientificName}
             vernacularName={vernacularName}
-            classes={classes.identity}
           />
         </div>
         {distribution && (
-        <div className={classes.element}>
+        <div className="taxon-tab-element">
           <PlaceIcon />
           <TaxonDistribution
             distribution={distribution}
           />
         </div>
         )}
-        <div className={classes.element}>
+        <div className="taxon-tab-element">
           <InfoIcon />
           <Taxonomy
             kingdom={kingdom}
@@ -123,15 +78,13 @@ const TaxonCard = ({
             genus={genus}
             species={species}
             taxonClass={taxonClass}
-            classes={classes.taxonomy}
           />
         </div>
-        <div className={classes.element}>
+        <div className="taxon-tab-element">
           <StorageIcon />
           <TaxonDataSources
             gbifKey={gbifKey}
             wikidataPageId={wikidataPageID}
-            classes={classes.datasources}
           />
         </div>
       </div>

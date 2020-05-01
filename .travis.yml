@@ -3,8 +3,11 @@ language: python
 python:
   - "3.7"
 
+env: DJANGO_SETTINGS_MODULE="leia_backend.settings.travis"
+
 services:
   - docker
+  - postgresql
 
 branches:
   only:

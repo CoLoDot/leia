@@ -10,7 +10,7 @@ import Switch from '@material-ui/core/Switch';
 import FormGroup from '@material-ui/core/FormGroup';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 import FormControl from '@material-ui/core/FormControl';
-
+import '../../styles/SearchBar.scss';
 
 const displayOptions = (option) => _.upperFirst(option.vernacularName || option.name);
 
@@ -26,14 +26,7 @@ const SearchBar = ({ taxa, onChangeTaxon }) => {
   };
 
   return (
-    <div style={{
-      display: 'flex',
-      flexDirection: 'row',
-      paddingTop: 20,
-      justifyContent: 'center',
-      alignItems: ' center',
-    }}
-    >
+    <div className="search-bar-container">
       <FormControl component="fieldset">
         <FormGroup row>
           <FormControlLabel
@@ -44,7 +37,7 @@ const SearchBar = ({ taxa, onChangeTaxon }) => {
         </FormGroup>
       </FormControl>
       <Autocomplete
-        style={{ width: 650 }}
+        className="search-bar-container_autocomplete"
         multiple
         limitTags={2}
         id="tags-outlined"

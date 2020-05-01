@@ -2,13 +2,14 @@
 import React from 'react';
 import { Typography, Paper } from '@material-ui/core';
 import PropTypes from 'prop-types';
+import '../../styles/Taxon.scss';
 
-const TaxonIdentity = ({ classes, scientificName, vernacularName }) => (
+const TaxonIdentity = ({ scientificName, vernacularName }) => (
   <>
     {vernacularName && (
       <Paper
         variant="elevation"
-        className={classes}
+        className="taxon-identity"
       >
         <Typography variant="caption">
           vernacular name:
@@ -20,7 +21,7 @@ const TaxonIdentity = ({ classes, scientificName, vernacularName }) => (
     )}
     <Paper
       variant="elevation"
-      className={classes}
+      className="taxon-identity"
     >
       <Typography variant="caption">
         scientific name and taxon's author:
@@ -33,7 +34,6 @@ const TaxonIdentity = ({ classes, scientificName, vernacularName }) => (
 );
 
 TaxonIdentity.propTypes = {
-  classes: PropTypes.isRequired,
   scientificName: PropTypes.string.isRequired,
   vernacularName: PropTypes.string.isRequired,
 };

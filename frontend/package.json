@@ -2,7 +2,7 @@
   "name": "leia",
   "version": "0.1.0",
   "private": true,
-  "proxy": "http://0.0.0.0:8000",
+  "proxy": "http://backend:8000",
   "dependencies": {
     "@material-ui/core": "^4.9.3",
     "@material-ui/icons": "^4.9.1",
@@ -21,6 +21,7 @@
     "lodash": "^4.17.15",
     "moment": "^2.24.0",
     "moxios": "^0.4.0",
+    "node-sass": "^4.14.0",
     "prop-types": "^15.7.2",
     "react": "^16.13.1",
     "react-alert": "^6.0.0",
