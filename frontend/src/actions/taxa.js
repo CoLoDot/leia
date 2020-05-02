@@ -4,7 +4,7 @@ import { GET_TAXA } from './types';
 import { returnErrors } from './errors';
 
 export const getTaxa = () => (dispatch) => axios
-  .get('/taxa/')
+  .get('/api/taxa/')
   .then((res) => {
     dispatch({
       type: GET_TAXA,
