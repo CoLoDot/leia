@@ -1,6 +1,11 @@
-from rest_framework import routers
-from .api import TaxonViewSet
 
-router = routers.DefaultRouter()
-router.register('api/taxa', TaxonViewSet, 'taxon')
-urlpatterns = router.urls
+from django.urls import path, include
+from .api import TaxonViewSet
+from rest_framework.routers import DefaultRouter
+
+router = DefaultRouter()
+router.register(r'taxa', TaxonViewSet)
+
+urlpatterns = [
+    path('', include(router.urls)),
+]

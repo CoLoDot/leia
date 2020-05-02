@@ -3,7 +3,7 @@ language: python
 python:
   - "3.7"
 
-env: DJANGO_SETTINGS_MODULE="leia_backend.settings.travis"
+env: DJANGO_SETTINGS_MODULE="leia_backend.settings.testing"
 
 services:
   - docker
@@ -23,5 +23,5 @@ install:
 script:
   - make test_backend
   - make test_frontend
-  - make build
-  - make status
+  # - make build
+  # - make status

@@ -1,8 +1,8 @@
 version: "3.2"
 services:
+  db:
+    image: postgres:11.1-alpine
   backend:
-    environment:
-      - DJANGO_SETTINGS_MODULE=leia_backend.settings.development
     build: ./backend
     volumes:
       - ./backend:/app/backend
@@ -10,6 +10,10 @@ services:
       - "8000:8000"
     stdin_open: true
     tty: true
+    depends_on:
+      - db
+    environment:
+      - DJANGO_SETTINGS_MODULE=leia_backend.settings.development
     command: python3 manage.py runserver 0.0.0.0:8000
   frontend:
     build: ./frontend

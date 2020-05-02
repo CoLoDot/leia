@@ -35,4 +35,6 @@ test_frontend:
 	cd ./frontend && npm test
 
 test_backend:
-	cd ./backend && coverage run --source='.' manage.py test && coverage report
+	export DJANGO_SETTINGS_MODULE=leia_backend.settings.testing && \
+	cd ./backend && coverage run --source='.' manage.py test && \
+	coverage report

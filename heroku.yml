@@ -1,10 +1,5 @@
 build:
     docker:
-        web: Dockerfile
+        web: Dockerfile.prod
 run:
     web: python3 backend/manage.py runserver 0.0.0.0:$PORT
-    worker:
-        command:
-            - python3 backend/manage.py migrate
-            - python3 backend/manage.py loaddata leia_api/dumps/leia_api.json
-        image: web

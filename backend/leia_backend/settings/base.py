@@ -27,7 +27,7 @@ INSTALLED_APPS = [
 ]
 
 CRONJOBS = [
-    ('0 7 * * 7', 'leia_api.cron.update_model_taxon')
+    ('0 7 * * 7', 'leia_api.cron.update_model_Taxon')
 ]
 
 REST_FRAMEWORK = {

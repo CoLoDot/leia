@@ -12,10 +12,11 @@ RUN pip3 install --upgrade pip -r requirements.txt
 
 WORKDIR /app/frontend
 
-COPY ./frontend/package.json /app/frontend/
+COPY ./frontend/package.json ./frontend/yarn.lock /app/frontend/
 RUN $HOME/.yarn/bin/yarn install
 
 COPY . /app/
+COPY ./backend/scripts/ /app/
 
 RUN $HOME/.yarn/bin/yarn build
 
@@ -28,9 +29,10 @@ RUN mkdir /app/backend/staticfiles
 WORKDIR /app
 
 RUN DJANGO_SETTINGS_MODULE=leia_backend.settings.production \
-  SECRET_KEY=myamazingsecretkey \
+  SECRET_KEY=SECRETKEYHERE \
   python3 backend/manage.py collectstatic --noinput
 
 EXPOSE $PORT
 
-CMD python3 backend/manage.py runserver 0.0.0.0:$PORT
+RUN ["chmod", "+x", "/app/entrypoint-production.sh"]
+ENTRYPOINT ["/app/entrypoint-production.sh"]
