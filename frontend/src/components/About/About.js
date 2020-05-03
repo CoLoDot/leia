@@ -2,9 +2,9 @@
 /* eslint-disable react/jsx-filename-extension */
 import React, { forwardRef, useState } from 'react';
 import {
-  Button, Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle, Slide,
+  Button, Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle, Slide, Typography, Link,
 } from '@material-ui/core/';
-
+import GitHubIcon from '@material-ui/icons/GitHub';
 
 const Transition = forwardRef((props, ref) => <Slide direction="down" ref={ref} {...props} />);
 
@@ -26,11 +26,21 @@ const About = () => {
         <DialogTitle id="alert-dialog-slide-title">About leia</DialogTitle>
         <DialogContent dividers>
           <DialogContentText id="alert-dialog-slide-description">
-            leia has been built to improve your personal knowledge about extinct species.
-            <br />
-            leia is a SPA built with Python 3.7, Django and React.JS.
-            <br />
-            leia is an open source project. You can find the code repository on GitHub.
+            Leia is a pedagogical project to improve people's knowledge about extinct species. Leia's data are coming from Wikidata and Global Biodiversity Information Facility open source APIs.
+          </DialogContentText>
+          <DialogContentText
+            style={{
+              display: 'flex',
+              flexDirection: 'row',
+              margin: 10,
+              alignItems: 'center',
+              padding: 'inherit',
+            }}
+          >
+            <Link href="https://github.com/CoLoDot/leia" target="_blank" style={{ marginRight: 10 }}><GitHubIcon /></Link>
+            <Typography variant="caption">
+              Leia is an open source project, you can contribute by opening a pull request, reviews environnements will be soon available.
+            </Typography>
           </DialogContentText>
         </DialogContent>
         <DialogActions>
