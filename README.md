@@ -7,14 +7,19 @@ Leia is an open source project built with python and javascript.
 Before launching the project locally you need to install those dependencies: 
 - Docker
 - make
+- Postgres (don't forget to update database django settings development with your own user name)
 
-## Launch
+## First, run tests
 
-> make : this command will launch the app 
-
-## Run Tests
+Launch virtual environnement:
 > make shell
 
+Run backend tests:
+> make test_backend
+
+Run frontend tests
 > make test_frontend
 
-> make test_backend
+## & Launch the app !
+
+> make
