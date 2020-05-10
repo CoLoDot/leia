@@ -37,4 +37,8 @@ test_frontend:
 test_backend:
 	export DJANGO_SETTINGS_MODULE=leia_backend.settings.testing && \
 	cd ./backend && coverage run --source='.' manage.py test && \
-	coverage report
+	coverage report -m
+
+urls_debug:
+	export DJANGO_SETTINGS_MODULE=leia_backend.settings.development && \
+	cd ./backend && python manage.py show_urls
