@@ -1,32 +1,54 @@
 /* eslint-disable react/jsx-filename-extension */
-import React from 'react';
+import React, { useState } from 'react';
+import { connect } from 'react-redux';
+import PropTypes from 'prop-types';
 import {
-  AppBar, Toolbar, Typography,
+  AppBar, Toolbar, Typography, Button,
 } from '@material-ui/core';
+import { updateTaxa } from '../../actions/taxa';
 import About from '../About/About';
 
-const Header = () => (
-  <AppBar position="sticky" color="transparent">
-    <Toolbar>
-      <Typography variant="h4" style={{ flex: 1 }}>
-        leia
-        <Typography
-          variant="caption"
-          style={{
-            display: 'inline-block',
-            marginLeft: 10,
-          }}
-        >
-          extinct species database
+const Header = (props) => {
+  const [isUpdating, setUpdate] = useState(false);
+  const clickActions = () => {
+    props.updateTaxa();
+    setUpdate(true);
+  };
+  return (
+    <AppBar position="sticky" color="transparent">
+      <Toolbar>
+        <Typography variant="h4" style={{ flex: 1 }}>
+          leia
+          <Typography
+            variant="caption"
+            style={{
+              display: 'inline-block',
+              marginLeft: 10,
+            }}
+          >
+            extinct species database
+          </Typography>
         </Typography>
-      </Typography>
-      <Toolbar style={{ paddingRight: '0px' }}>
-        <>
-          <About />
-        </>
+        <Toolbar style={{ paddingRight: '0px' }}>
+          <>
+            <Button variant="contained" style={{ marginRight: 10 }} onClick={clickActions} disabled={isUpdating}>Update database</Button>
+            <About />
+          </>
+        </Toolbar>
       </Toolbar>
-    </Toolbar>
-  </AppBar>
-);
+    </AppBar>
+  );
+};
 
-export default Header;
+Header.propTypes = {
+  updateTaxa: PropTypes.func.isRequired,
+};
+
+const mapStateToProps = (state) => ({
+  loading: state.Taxa.update.loading,
+});
+
+const mapDispatchToProps = (dispatch) => ({ updateTaxa: () => dispatch(updateTaxa()) });
+
+
+export default connect(mapStateToProps, mapDispatchToProps)(Header);

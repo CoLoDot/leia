@@ -19,7 +19,7 @@ const Home = (props) => {
   const [taxaArray, setTaxaArray] = useState([]);
   return (
     <Container fixed>
-      {!_.isEmpty(props.taxa) ? (
+      {!props.loading && !_.isEmpty(props.taxa) ? (
         <SearchBar
           taxa={props.taxa}
           onChangeTaxon={setTaxaArray}
@@ -39,6 +39,7 @@ Home.propTypes = {
 
 const mapStateToProps = (state) => ({
   taxa: state.Taxa.taxa,
+  loading: state.Taxa.update.loading,
 });
 
 const mapDispatchToProps = (dispatch) => ({ getTaxa: () => dispatch(getTaxa()) });
