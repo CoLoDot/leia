@@ -31,7 +31,7 @@ const Header = (props) => {
         </Typography>
         <Toolbar style={{ paddingRight: '0px' }}>
           <>
-            <Button variant="contained" style={{ marginRight: 10 }} onClick={clickActions} disabled={isUpdating}>Update database</Button>
+            <Button variant="contained" style={{ marginRight: 10 }} onClick={clickActions} disabled>Update database</Button>
             <About />
           </>
         </Toolbar>
