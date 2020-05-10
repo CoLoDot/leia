@@ -32,7 +32,7 @@ migrations:
 	cd ./backend && ./manage.py makemigrations && ./manage.py migrate
 
 test_frontend:
-	cd ./frontend && npm test
+	cd ./frontend && npm install && npm test
 
 test_backend:
 	export DJANGO_SETTINGS_MODULE=leia_backend.settings.testing && \

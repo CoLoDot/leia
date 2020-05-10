@@ -2,24 +2,53 @@
 
 Leia is an open source project built with python and javascript.
 
-### Setup
+## Quick Start
 
 Before launching the project locally you need to install those dependencies: 
-- Docker
+- [Docker Desktop](https://www.docker.com/products/docker-desktop)
+- [Postgres App](https://postgresapp.com/) : Django database's dev's settings can be found in ```leia/backend/leia_backend/settings/development.py```
 - make
-- Postgres (don't forget to update database django settings development with your own user name)
 
-## First, run tests
 
-Launch virtual environnement:
-> make shell
+Clone the repository: 
 
-Run backend tests:
-> make test_backend
+```git clone https://github.com/CoLoDot/leia.git```
 
-Run frontend tests
-> make test_frontend
+Go to leia/
+
+```cd leia/```
+
+Launch virtual environment 
+
+```make shell```
+
+Install dependencies
+
+```pipenv install```
+
+
+Launch Docker Desktop and Postgress App 
+
+### Run tests
+
+```cd leia/```
+
+```make shell```
+
+Run back-end tests:
+
+```make test_backend```
+
+Run front-end tests:
+
+```make test_frontend```
 
 ## & Launch the app !
 
-> make
+```cd leia/```
+
+```make```
+
+Backend will be available at ```http://0.0.0.0:8000/api/```
+
+Frontend will be available at ```http://localhost:3000/```
