@@ -18,7 +18,7 @@
     "enzyme-adapter-react-16": "^1.15.2",
     "expect": "^25.3.0",
     "jest": "24.9.0",
-    "lodash": "^4.17.19",
+    "lodash": "^4.17.21",
     "moment": "^2.24.0",
     "moxios": "^0.4.0",
     "node-sass": "^4.14.0",
